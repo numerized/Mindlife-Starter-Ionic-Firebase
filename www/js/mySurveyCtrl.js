@@ -22,17 +22,9 @@ angular.module('mysurvey.controllers', [])
 					refMyPrivacySettings.child(value.label).setWithPriority(value, priority);
 					priority = priority+1;
 				});
-
 			}
-
 		}	
 	);
-
-	$scope.getQuestionId = function (questionLabel)
-	{
-		return $scope.UserQuestionnaires.$indexFor(questionLabel);
-	}
-
 	
 	$scope.onFocus = function() {
     	$scope.focused = true;
