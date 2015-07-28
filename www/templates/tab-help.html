@@ -1,0 +1,78 @@
+<ion-view>
+<ion-nav-buttons side="left">
+  <a class="button button-icon button-clear icon ion-ios-ionic-outline dark" ng-click="goHomeAndAnim()"></a>
+</ion-nav-buttons>
+<ion-nav-buttons side="right"> 
+  <button class="button button-icon button-clear icon dark"
+          ng-click="nextSlide()" ng-show="currentSlide < 6">
+    Next
+  </button>
+  <button class="button button-icon button-clear icon dark"
+          ng-click="goHomeAndAnim()" ng-show="currentSlide == 6">
+    I'm In !
+  </button>
+</ion-nav-buttons>
+    <ion-content>
+      	<ion-slide-box on-slide-changed="slideHasChanged($index)" delegate-handle="theHelpSlider" show-pager="false">
+			<ion-slide>
+				<div class="helpBox brow">
+					<div class="col-xs-12 col-md-offset-3 col-md-6">
+						<h2>Calling all Students!<br/><br/></h2>
+						<h4>In collaboration with Character Scotland, Help2Help is on a mission to develop an amazing App with you, for you!<br/>Based on the Inspire>Aspire Poster Programme this App will inspire you and your friends to be the best you can be, fulfil your dreams, and unfold your unique potential to achieve a flourishing meaningful life.<br/><br/>We invite you to work with us. Join our Young Creative Crew and you could win £100!<br/><br/></h4>
+						<button class="button button-dark button-block" ng-click="nextSlide()">Next!</button>
+					</div>
+				</div>
+			</ion-slide>
+			<ion-slide>
+				<div class="helpBox brow">
+					<div class="col-xs-12 col-md-offset-3 col-md-6">
+						<br/><br/><br/><h4>We’re developing this interactive App as part of a research program to inspire and encourage you, your friends and all young people to nurture your strengths, and develop positive character qualities to truly awaken your ability to feel fully alive and in charge of your own destiny.<br/><br/><br/></h4>
+						<button class="button button-dark button-block" ng-click="nextSlide()">Next!</button>
+					</div>
+				</div>
+			</ion-slide>
+			<ion-slide>
+				<div class="helpBox brow">
+					<div class="col-xs-12 col-md-offset-3 col-md-6">
+						<br/><br/><br/><h4>We want to develop this App with you. You know better than anyone what makes an App appealing and how to stimulate you and your friends to use it.<br/><br/>We invite you to be part of the research development process - and you could be the lucky winner of a cash prize!<br/><br/><br/></h4>
+						<button class="button button-dark button-block" ng-click="nextSlide()">Next!</button>
+					</div>
+				</div>
+			</ion-slide>
+			<ion-slide>
+				<div class="helpBox brow">
+					<div class="col-xs-12 col-md-offset-3 col-md-6">
+						<br/><br/><h4>Our values and qualities are important components which define our character and who we are. They affect how we see ourselves and others, how we respond to situations, how we view the world, and develop our own lives.<br/><br/>They impact our relationships, our happiness, our ability to succeed and our overall wellbeing and future. Identifying our strengths and nurturing positive qualities will improve our ability to truly flourish.<br/><br/><br/></h4>
+						<button class="button button-dark button-block" ng-click="nextSlide()">Next!</button>
+					</div>
+				</div>
+			</ion-slide>
+			<ion-slide>
+				<div class="helpBox brow">
+				<div class="col-xs-12 col-md-offset-3 col-md-6">
+					<br/><br/><h4>With exclusive access to this first research version, take your first step on an empowering journey to help shape the final App especially for you.<br/><br/>Tell us what features are important and what would motivate you and your friends to use the App daily to improve your life. Your input will be entered into a Prize Draw, with each comment counted as a separate entry!<br/><br/><br/></h4>
+					<button class="button button-dark button-block" ng-click="nextSlide()">Next!</button>
+				</div>
+				</div>
+			</ion-slide>
+			<ion-slide>
+				<div class="helpBox brow">
+				<div class="col-xs-12 col-md-offset-3 col-md-6">
+					<br/><br/><h4>Play categories from one to six, and you could be the lucky winner of our Prize Draw. To begin, click category 1 on the Category Wheel, and access your playing cards by clicking on “Qualities”. Follow the prompts provided to enter your ideas and suggestions.<br/><br/>Remember, every action or suggestion will be counted as a separate entry into the Prize Draw.<br/><br/><br/></h4>
+					<button class="button button-dark button-block" ng-click="nextSlide()">Next!</button>
+				</div>
+				</div>
+			</ion-slide>
+			<ion-slide>
+				<div class="helpBox brow">
+				<div class="col-xs-12 col-md-offset-3 col-md-6">
+					<br/><br/><h4>Watch your chances of winning, above the Category wheel, increase with every input!  Every chance of winning is also a chance to unlock and play the next category.  So don’t be shy, let your creativity flow and enter as many ideas as you can. All contributions are eagerly anticipated - Best contributions will receive credits and ideas will be incorporated in the App.<br/><br/><br/></h4><h2>Good luck, be inspired and have fun!<br/><br/></h2>
+					<button class="button button-dark button-block" ng-click="goHomeAndAnim()">
+						I'm In !
+					</button>
+				</div>
+				</div>
+			</ion-slide>
+		</ion-slide-box>
+	</ion-content>
+</ion-view>

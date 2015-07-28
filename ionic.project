@@ -1,0 +1,12 @@
+{
+  "name": "audimatR",
+  "app_id": "eebbab84",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
+}

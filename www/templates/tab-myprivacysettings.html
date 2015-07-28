@@ -1,0 +1,100 @@
+<ion-view>
+    <ion-nav-title>
+      Privacy Settings
+    </ion-nav-title>
+<ion-nav-buttons side="left">
+  <a class="button button-icon button-clear icon ion-ios-ionic-outline dark" ng-click="goHomeAndAnim()"></a>
+</ion-nav-buttons>
+    <ion-content>
+        <div class="offline" ng-if="online == 'offline'" class="animate-if">
+          <p>You are now in offline mode.<br/>You can continue to use the app.</p>
+        </div>
+        <div class="brow">
+            <div class="col-xs-12 col-md-offset-3 col-md-6">
+                <h2>Welcome to iAspireLab</h2>
+                <h6>and thank you for joining us to help develop the InspireAspire App.</h6>
+                <h4>We’re committed to respecting your privacy and will only use the information you provide to aid the research and development of the full InspireAspire App.</h4>
+            </div>
+        </div>
+        <div ng-repeat="Question in myPrivacySettings">
+            <div class="brow" ng-if="myPrivacySettings[Question.conditionQuestion].replyNumber == Question.conditionAnswer || !Question.conditionAnswer">
+                <div class="col-xs-12 col-md-offset-3 col-md-6">
+                    <h4>{{Question.label}}</h4>
+                    <h4 ng-if="Question.type == 'slider'">{{priority[Question.replyNumber]}}</h4>
+                </div>
+            </div>
+            <div class="brow">
+                <div class="col-xs-12 col-md-offset-3 col-md-6">                
+                    <div class="item range range-positive" ng-if="Question.type == 'slider'">
+                        <i class="icon ion-ios-minus-outline" ng-click="Question.replyNumber = Question.replyNumber-1"></i>
+                            <input class="range-zoom" ng-model="Question.replyNumber" type="range" ng-change="saveReply($index, 'Privacy', Question.label, priority[Question.replyNumber], Question.replyNumber, Question.type)" name="volume" min="0" max="4" step="1">
+                        <i class="icon ion-ios-plus-outline" ng-click="Question.replyNumber = Question.replyNumber+1"></i>
+                    </div>
+                    <label class="item item-input list_dashed" ng-if="Question.type == 'freetext'">
+                        <textarea enter-submit="saveReply($index, 'Privacy', Question.label, Question.replyText, -1)" msd-elastic name="desc" id="desc" placeholder="Click here to input text" ng-model="Question.replyText" ng-blur="saveReply($index, 'Privacy', Question.label, Question.replyText, -1, Question.type)"></textarea>
+                    </label>
+                    <label class="item item-input list_dashed" ng-if="Question.type == 'inputtext' && (myPrivacySettings[Question.conditionQuestion].replyNumber == Question.conditionAnswer || !Question.conditionAnswer)">
+                        <input type='text' enter-submit="saveReply($index, 'Privacy', Question.label, Question.replyText, -1)" name="desc" id="desc" placeholder="Click here to input text" ng-model="Question.replyText" ng-blur="saveReply($index, 'Privacy', Question.label, Question.replyText, -1, Question.type)">
+                    </label>
+
+                    <div class="list" ng-if="Question.type == 'radio'">
+  						<label class="list_dashed item item-radio" ng-repeat="(optionIndex, label) in myPrivacySettings[$index].options">
+    						<input type="radio" name="group" ng-model="Question.replyText" value="{{label}}" ng-click="saveReply($index, 'Privacy', Question.label, label, optionIndex, Question.type)">
+    							<div class="item-content">
+      								{{label}}
+    							</div>
+    						<i class="radio-icon ion-checkmark"></i>
+  						</label>
+  						<label class="list_dashed item item-radio">
+    						<input type="radio" name="group" ng-model="Question.replyText" value="Other" ng-click="saveReply($index, 'Privacy', Question.label, label, optionIndex, Question.type)">
+    							<div class="item-content">
+      								Other
+    							</div>
+    						<i class="radio-icon ion-checkmark"></i>
+  						</label>
+					</div>
+
+                    <div ng-if="Question.type == 'yesno' && (myPrivacySettings[Question.conditionQuestion].replyNumber == Question.conditionAnswer || !Question.conditionAnswer)">
+						<ion-toggle class="list_dashed" ng-model="Question.replyNumber" ng-change="saveReply($index, 'Privacy', Question.label, Question.replyNumber, Question.replyNumber, Question.type)">
+							<span ng-if="Question.replyNumber != true"><h2>No</h2></span>
+							<span ng-if="Question.replyNumber == true"><h2>Yes</h2></span>
+						</ion-toggle>
+					</div>
+                </div>
+            </div>
+        </div>
+		<div class="brow">
+		<div class="col-xs-12 col-md-offset-3 col-md-6">
+			<br/>
+			<br/>
+			<h2>Personal data and privacy commitment</h2>
+			<h6>We will not disclose any personal data to any third party without your prior consent. To understand how we will treat your personal data and suggestions after it has been collected by us through your use of iAspireLab. 
+			<h6>As part of our development process we conduct focus group research to help us ensure our Apps are appealing and attractive to those who use them. Any information collected is stored by us and is only used to help us decide the best content to include in our Apps.</h6>
+			<h6>All personal data is kept confidential and is only used to help us locate you if you win a prize in the Prize Draw, or if your contribution has been nominated for inclusion in the App. We promise not to use any of this information for commercial purposes or gain, and we won’t give any of your personal information to a third party. Any data used for further research purposes will be saved anonymously.</h6>
+			<h6>By “playing” or entering any information into this iAspireLab research App you understand and agree to let us collect, store and use the information entered as described above.</h6>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>						
+		</div>
+		</div>
+	</ion-content>
+</ion-view>
