@@ -1,55 +1,85 @@
 <ion-view hide-nav-bar="true">
-<ion-content>
+  <ion-content>
+    <br/>
+    <br/>
+    <br/>
+    <div class="bsrow" ng-if="!uid">
+     <div class="col-xs-12 col-xs-B-12 col-sm-offset-1 col-sm-4">
+      <span class="hidden-xs">
+        <br/>
+        <br/>
+        <h2 style="text-align:center">{{ 'LOGIN_TITLE' | translate }}</h2>
+      </span>
+
+     </div>
+     <div class="col-xs-12 col-xs-B-12 col-sm-offset-1 col-sm-4"> 
+      
+      <h4 style="text-align:center" ng-if="!spinner && !login_message">{{ 'LOGIN_TEXT' | translate }}</h4>
+      <h4 style="text-align:center" ng-if="login_message">{{ login_message }}</h4>
+      <h4 style="text-align:center" ng-if="spinner && !login_message">please wait</h4>
       <br/>
-      <br/>
-      <br/>
-      <div class="bsrow">
-       <div class="col-xs-12 col-xs-B-12 col-sm-offset-1 col-sm-4">
-        <span class="hidden-xs">
-          <img src="img/ACTIVE-joyful.svg" width="100%" height="100%" style='border-radius: 15px;box-shadow: 0px 0px 2px white;'>
-          <br/>
-          <br/>
-          <h2 style="text-align:center">{{ 'LOGIN_TITLE' | translate }}</h2>
-        </span>
-         <div class="visible-xs" style="position:relative; text-align:center">
-          <img src="img/ACTIVE-joyful.svg" width="40%" height="40%" style='border-radius: 15px;box-shadow: 0px 0px 2px white;'>
+        <div ng-if="device">
+          <button class="button button-dark button-block icon-left ion-social-facebook" ng-click="fbLogin()">
+            {{ 'FACEBOOK_SIGNIN' | translate }}
+          </button>
         </div>
-       </div>
-       <div class="col-xs-12 col-xs-B-12 col-sm-offset-1 col-sm-4"> 
-       <h2 style="text-align:center">{{ 'LOGIN_TEXT' | translate }}</h2>
-       <br/>
-          <div ng-if="device">
-  	      	<button class="button button-dark button-block icon-left ion-social-facebook" ng-click="fbAppLogin()">
-  	        	{{ 'FACEBOOK_SIGNIN' | translate }}
-  	      	</button>
-        	</div>
-          <div ng-if="!device">
-            <button class="button button-dark button-block icon-left ion-social-facebook" ng-click="fbLogin()">
-              {{ 'FACEBOOK_SIGNIN' | translate }}
-            </button>
-          </div>
-        	<div>
-  	      	<button class="button button-dark button-block icon-left ion-social-twitter" ng-click="twitterLogin()">
-  	        	{{ 'TWITTER_SIGNIN' | translate }}
-  	      	</button>
-        	</div>
-          <div>
-            <button class="button button-dark button-block icon-left ion-social-googleplus-outline" ng-click="googleLogin()">
-              {{ 'GOOGLE_SIGNIN' | translate }}
-            </button>
-          </div>
-          <div>
-            <button class="button button-dark button-block icon-left ion-person-add" ng-click="userRegister()">
-              {{ 'USER_REGISTER_BUTTON' | translate }}
-            </button>
-          </div>
-          <div>
-            <button class="button button-dark button-block icon-left ion-person" ng-click="userLoginPage()">
-              {{ 'USER_LOGIN_BUTTON' | translate }}
-            </button>
-          </div>
-          <p>Use same route to sign in each time (i.e if you created your account via Facebook, continue to use Facebook to sign in, or create a new account using one of the other routes).</p>
-       </div>
-       </div>
-</ion-content>
+        <div ng-if="!device">
+          <button class="button button-dark button-block icon-left ion-social-facebook" ng-click="fbLogin()">
+            {{ 'FACEBOOK_SIGNIN' | translate }}
+          </button>
+        </div>
+        <div>
+          <button class="button button-dark button-block icon-left ion-social-twitter" ng-click="twitterLogin()">
+            {{ 'TWITTER_SIGNIN' | translate }}
+          </button>
+        </div>
+        <div>
+          <button class="button button-dark button-block icon-left ion-social-googleplus-outline" ng-click="googleLogin()">
+            {{ 'GOOGLE_SIGNIN' | translate }}
+          </button>
+        </div>
+        <div>
+          <button class="button button-dark button-block icon-left ion-person-add" ng-click="userRegister()">
+            {{ 'USER_REGISTER_BUTTON' | translate }}
+          </button>
+        </div>
+        <div>
+          <button class="button button-dark button-block icon-left ion-person" ng-click="userLoginPage()">
+            {{ 'USER_LOGIN_BUTTON' | translate }}
+          </button>
+        </div>
+        <p>Use same route to sign in each time (i.e if you created your account via Facebook, continue to use Facebook to sign in, or create a new account using one of the other routes).</p>
+     </div>
+   </div>
+   <div class="bsrow" ng-if="uid && !spinner">
+     <div class="col-xs-12 col-xs-B-12 col-sm-offset-1 col-sm-4">
+      <span class="hidden-xs">
+        <img src="img/ACTIVE-joyful.svg" width="100%" height="100%" style='border-radius: 15px;box-shadow: 0px 0px 2px white;'>
+        <br/>
+        <br/>
+        <h2 style="text-align:center">iAspireLab</h2>
+      </span>
+       <div class="visible-xs" style="position:relative; text-align:center">
+        <img src="img/ACTIVE-joyful.svg" width="40%" height="40%" style='border-radius: 15px;box-shadow: 0px 0px 2px white;'>
+      </div>
+     </div>
+     <div class="col-xs-12 col-xs-B-12 col-sm-offset-1 col-sm-4"> 
+      
+      <h4 style="text-align:center" ng-if="!spinner && !login_message">Do you want to disconnect from iAspireLab ?</h4>
+      <h4 style="text-align:center" ng-if="login_message">{{ login_message }}</h4>
+      <h4 style="text-align:center" ng-if="spinner && !login_message">please wait</h4>
+      <br/>
+        <div>
+          <a class="button button-calm button-block" ui-sref="home">
+            Stay Connected
+          </a>
+        </div>
+        <div>
+          <button class="button button-assertive button-block icon-left ion-log-out"  ng-click="unAuth()">
+            Disconnect
+          </button>
+        </div>
+      </div>
+    </div>
+  </ion-content>
 </ion-view>

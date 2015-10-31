@@ -6,6 +6,10 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var minifyHtml    = require('gulp-minify-html');
+var templateCache = require('gulp-angular-templatecache');
+var ngAnnotate = require('gulp-ng-annotate');
+var uglify = require('gulp-uglify');
 
 var paths = {
   sass: ['./scss/**/*.scss']
@@ -15,9 +19,7 @@ gulp.task('default', ['sass']);
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
-    .pipe(sass({
-      errLogToConsole: true
-    }))
+    .pipe(sass())
     .pipe(gulp.dest('./www/css/'))
     .pipe(minifyCss({
       keepSpecialComments: 0
@@ -29,6 +31,9 @@ gulp.task('sass', function(done) {
 
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
+  gulp.watch('./www/templates/**/*.html', ['cache_templates']);
+  gulp.watch('./www/js/**/*.js', ['ng-annotate']);
+  gulp.watch('./www/annotate/**/*.js', ['compress']);
 });
 
 gulp.task('install', ['git-check'], function() {
@@ -49,4 +54,26 @@ gulp.task('git-check', function(done) {
     process.exit(1);
   }
   done();
+});
+
+gulp.task('cache_templates', function() {
+  gulp.src('www/templates/**/*.html')
+    .pipe(minifyHtml({empty: true}))
+    .pipe(templateCache({
+      standalone: true,
+      root: 'templates'
+    }))
+    .pipe(gulp.dest('www/js'));
+});
+
+gulp.task('ng-annotate', function () {
+    return gulp.src('www/js/**/*.js')
+        .pipe(ngAnnotate())
+        .pipe(gulp.dest('www/annotate'));
+});
+
+gulp.task('compress', function() {
+  return gulp.src('www/annotate/**/*.js')
+    .pipe(uglify())
+    .pipe(gulp.dest('www/dist'));
 });

@@ -1,0 +1,17 @@
+/**
+ * This CSS uses adjacent selectors instead of general sibling (~) selectors
+ * for ion radio that are broken in iOS 9 UIWebView.
+ *
+ * To apply the patch, include this CSS after your ionic.css include.
+ */
+  .item-radio input:checked + .radio-content .item-content {
+    /* style the item content when its checked */
+    background: rgba(8, 199, 125, 0.27);
+    
+  }
+    
+  .item-radio input:checked + .radio-content .radio-icon {
+    /* show the checkmark icon when its checked */
+    visibility: visible;
+    
+  }

@@ -2,35 +2,53 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title></title>
 
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Delius" rel="stylesheet" type="text/css">
+    
     <!--Custom Grid based on Bootstrap -->
-    <link href="css/vendors/bootstrapAB/bootstrapAB.css" rel="stylesheet">
+    <link href="css/vendors/bootstrap/bootstrapAB.css" rel="stylesheet">
 
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
-    
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- AngularJS -->
+    <script src="lib/00custom/ionic.bundle1.1.0.customv2.js"></script>
     <script src="lib/angular-resource/angular-resource.js"></script>
     <script src="lib/angular-websocket/angular-websocket.js"></script>
-    
-    <!-- Cordova + Plugins -->
-    <script src="lib/ng-cordova/dist/ng-cordova.min.js"></script>
-    <script src="lib/ionic-service-core/ionic-core.js"></script>
-    <script src="lib/ionic-service-push/ionic-push.js"></script>
-    <script src="lib/ionic-service-analytics/ionic-analytics.js"></script>
 
-    <!-- Angular Textarea Elastic -->
-    <script src="lib/angular-elastic/elastic.js"></script>
+
     <!-- Angular Translate -->
     <script src="lib/angular-translate/angular-translate.min.js"></script>
     <!-- Firebase -->
     <script src="lib/firebase/firebase.js"></script>
     <!-- AngularFire -->
     <script src="lib/angularfire/dist/angularfire.min.js"></script>
+
+    <!-- Cordova + Plugins -->
+    <script src="lib/ng-cordova/dist/ng-cordova.min.js"></script>
+
+
+
+    <!-- Angular Textarea Elastic -->
+    <script src="lib/angular-elastic/elastic.js"></script>
+
+    <!-- Patch IOS9 -->
+    <link href="lib/00custom/radio.css" rel="stylesheet">
+    <script src="lib/00custom/ionRadio.js"></script>
+    <script src="lib/00custom/angular-ios9-uiwebview.patch.js"></script>
+
+
+    <!-- https://hendrixer.github.io/ -->
+    <!--<script src="lib/gsap/src/minified/TweenMax.min.js"></script>
+    <script src="lib/ngFx/dist/ngFx.min.js"></script>-->
+
+
     <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+    <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
+<!-- <script src="cordova.js"></script> -->
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
@@ -41,20 +59,22 @@
     <script src="js/loginCtrl.js"></script>    
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
+    <script src="js/templates.js"></script>
   </head>
-  <body ng-app="starter">
-    <!--
-      The nav bar that will be updated as we navigate between views.
-    -->
-    <ion-nav-bar class="bar-stable">
-      <ion-nav-back-button>
-      </ion-nav-back-button>
-    </ion-nav-bar>
+  <body>
     <!--
       The views will be rendered in the <ion-nav-view> directive below
       Templates are in the /templates folder (but you could also
       have templates inline in this html file if you'd like).
     -->
-    <ion-nav-view></ion-nav-view>
+    <style ng-bind-html="categoryClass"></style>
+    <ion-nav-view class="container-fluid"></ion-nav-view>
+    <script>
+       angular.element(document).ready(function() {
+      angular.bootstrap(document, ['starter']);
+    });
+  </script>
   </body>
+
+  
 </html>

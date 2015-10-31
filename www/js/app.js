@@ -5,39 +5,62 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var app = angular.module('starter', ['ionic', 'ionic.service.analytics', 'mysurvey.controllers', 'ionic.service.core', 'ionic.service.push', 'login.controllers', 'starter.controllers', 'starter.services', 'pascalprecht.translate', 'ngResource', 'firebase', 'ngCordova'])
+var app = angular.module('starter', [
+  'ionic', 'mysurvey.controllers', 'login.controllers', 'starter.controllers', 'starter.services', 'pascalprecht.translate', 'ngResource', 'firebase', 'ngCordova'])
 
+.run(function($ionicSlideBoxDelegate, $sce, $ionicPlatform, $state, $rootScope, $timeout, $interval, $cordovaDevice, $firebaseObject, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
 
-.run(function($ionicPlatform, $timeout, $rootScope, $sce, $state, $translate, $cordovaDevice, $ionicAnalytics) {
   
+  $rootScope.spinner = false;
+  $translate.use('en');
+
   $rootScope.goHomeAndAnim = function ()
   {
-    
+    /*$rootScope.numberActivitiesCounter = null;
+    // anything you want can go here and will safely be run on the next digest.
+    var refUserCardsStatistics = new Firebase(FirebaseConfig.user+'/'+$rootScope.authData.uid+'/cards/statistics');
+    var FirebaseUserCardsStatistics = $firebaseObject(refUserCardsStatistics);
+    FirebaseUserCardsStatistics.$loaded(function(v)
+      {
+        $rootScope.statistics = v;
+        $rootScope.wheelProgress = v.numberActivities;
+          $interval(function() {
+            if ($rootScope.numberActivitiesCounter < v.numberActivities)
+            {
+                $rootScope.numberActivitiesCounter += 1;
+              }
+          }, 10);
+      }
+    );
+  */
     if($rootScope.categoryClassPrevious)
+    {
       $rootScope.categoryClass = $rootScope.categoryClassPrevious;
-    $rootScope.categoryClassPrevious = null;
-    $state.go('tab.home');
+      $rootScope.categoryClassPrevious = null;      
+    }
+
+    $state.go('home', null, { reload: true, notify: true });
+      
   }
 
   $rootScope.goHelp = function ()
   {
     $rootScope.categoryClassPrevious = $rootScope.categoryClass;
     $rootScope.categoryClass = $sce.trustAsHtml(".bar {background: #FF9856!important;} .co-content div div div { border-radius: 50%; background-image:url(img/cards/CONNECTED/category_CONNECTED.png); background-size:cover; background-position: center;} ion-content {background: linear-gradient(to top left, #ffe3bc, #FFDCAC 10%, #F9C79E 20%, #F4BB93 27%, #F9B483 35%, #FFAC77 50%, #FF9856 63%, #f58e4b 93%, #f58e4b);}.list h2, .list p {color: rgb(98, 13, 13) !important;} input[type='text'], textarea {border: 0; color: rgb(55, 68, 82)!important; font-size: 20px;  line-height: 1.2em;}");
-    $state.go('tab.help');
+    $state.go('tabs.help');
   }
 
   $rootScope.goAccount = function ()
   {
     $rootScope.categoryClassPrevious = $rootScope.categoryClass;
     $rootScope.categoryClass = $sce.trustAsHtml(".bar {background: #B5D36A!important;} .co-content div div div {border-radius: 50%; background-image:url(img/cards/SUSTAINABLE/category_SUSTAINABLE.png); background-size:cover; background-position: center;} ion-content {background: linear-gradient(to top left, #E0EDC5, #d1e1af 10%, #C5E08B 20%, #BEDA80 27%, #BBD57A 35%, #BBD57A 50%, #B5D36A 63%, #9AB84F 93%, #8bb862);} .list h2, .list p {color: rgb(55, 68, 82) !important} input[type='text'], textarea {border: 0; color: rgb(55, 68, 82)!important; font-size: 20px; line-height: 1.2em;}");
-    $state.go('tab.account');
+    $state.go('tabs.account');
   }
 
   $ionicPlatform.ready(function() {
-
-    $ionicAnalytics.register();
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
+
     // Check for network connection at startup on mobile
     if(window.Connection) {
       if(navigator.connection.type == Connection.NONE) {
@@ -91,12 +114,11 @@ var app = angular.module('starter', ['ionic', 'ionic.service.analytics', 'mysurv
 
     */
 
-    if(!$rootScope.uid && $state.$current.name !== 'login')
+    /*if(!$rootScope.uid && $state.$current.name !== 'login')
     {
       $rootScope.authData = null;
       $state.go('login');
-    }
-    
+    }*/   
 
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -121,6 +143,11 @@ var app = angular.module('starter', ['ionic', 'ionic.service.analytics', 'mysurv
 
     $rootScope.device = $cordovaDevice.getDevice();
 
+    if(ionic.Platform.isAndroid())
+    {
+      HardwareBackButtonManager.disable();
+    } 
+
     $cordovaGlobalization.getPreferredLanguage().then(
       function(result) {
         $rootScope.globalization = result;
@@ -132,7 +159,56 @@ var app = angular.module('starter', ['ionic', 'ionic.service.analytics', 'mysurv
         $rootScope.globalization = error;
         // error
     });
+
   }, false);
+})
+
+.directive('noScroll', function($document) {
+
+  return {
+    restrict: 'A',
+    link: function($scope, $element, $attr) {
+
+      $document.on('touchmove', function(e) {
+        e.preventDefault();
+      });
+    }
+  }
+})
+
+.directive('textarea', function(){
+    return {
+        restrict: 'E',
+        scope: {
+            'noIonic': '='
+        },
+        link: function(scope, element, attr){
+            if(scope.noIonic){
+                element.bind('touchend  touchmove touchstart', function(e){
+                    e.stopPropagation();
+                });    
+            } 
+        }
+    }
+})
+
+.directive('enterSubmit', function () {
+  return {
+    restrict: 'A',
+    link: function (scope, elem, attrs) {
+     
+      elem.bind('keydown', function(event) {
+        var code = event.keyCode || event.which;
+                
+        if (code === 13) {
+          if (!event.shiftKey) {
+            event.preventDefault();
+            scope.$apply(attrs.enterSubmit);
+          }
+        }
+      });
+    }
+  }
 })
 
 .config(['$ionicConfigProvider', function($ionicConfigProvider) {
@@ -143,36 +219,72 @@ var app = angular.module('starter', ['ionic', 'ionic.service.analytics', 'mysurv
   
 }])
 
-.config(function($stateProvider, $urlRouterProvider, $ionicAppProvider) {
-
-  // Identify app
-  $ionicAppProvider.identify({
-    app_id: 'eebbab84',
-    api_key: '0f73db399e48c3b8562c7353460960fb0903af6985aae132',
-    // If true, will attempt to send development pushes
-    dev_push: true
-  });
+.config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
+  
+  <!-- -->
+
   $stateProvider
 
-  .state('login', {
+    .state('login', {
       url: "/login",
       templateUrl: "templates/login.html",
       controller: 'LoginCtrl'
     })
-
-  // setup an abstract state for the tabs directive
-  .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'templates/tabs.html'
-  })
-
-  .state('tab.help', {
+    .state('register', {
+      url: "/register",
+      templateUrl: "templates/register.html",
+      controller: 'LoginCtrl'
+    })
+    .state('userLogin', {
+      url: "/user-login",
+      templateUrl: "templates/user-login.html",
+      controller: 'LoginCtrl'
+    })
+    .state('userLoginPasswordReset', {
+      url: "/user-login-password-reset",
+      templateUrl: "templates/user-login-password-reset.html",
+      controller: 'LoginCtrl'
+    })
+    .state('tabs', {
+      url: "/tab",
+      abstract: true,
+      templateUrl: "templates/tabs.html"
+    })
+    .state('home', {
+      url: "/home",
+      parent: "tabs",
+      cache: true, //required
+      views: {
+        'tab-home': {
+          templateUrl: "templates/tab-home.html",
+          controller: 'HomeCtrl'
+        }
+      }
+    })    
+    .state('tabs.account', {
+      url: "/account",
+      views: {
+        'tab-account': {
+          controller: "AccountCtrl",
+          templateUrl: "templates/tab-account.html"
+        }
+      }
+    })
+    .state('tabs.myprivacysettings', {
+      url: "/myprivacysettings",
+      views: {
+        'tab-myprivacysettings': {
+          controller: "mySurveyCtrl",
+          templateUrl: "templates/tab-myprivacysettings.html"
+        }
+      }
+    })
+    .state('tabs.help', {
       url: "/help",
       views: {
         'tab-help': {
@@ -181,59 +293,10 @@ var app = angular.module('starter', ['ionic', 'ionic.service.analytics', 'mysurv
         }
       }
     })
-
-  // Each tab has its own nav history stack:
-  .state('tab.home', {
-    url: '/tab-home',
-    views: {
-      'tab-home': {
-        templateUrl: 'templates/tab-home.html',
-        controller: 'HomeCtrl'
-      }
-    }
-  })
-
-  .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
-      }
-    })
-
-  .state('tab.chat-detail', {
-    url: '/chats/:chatId',
-    views: {
-      'tab-chats': {
-        templateUrl: 'templates/chat-detail.html',
-        controller: 'ChatDetailCtrl'
-      }
-    }
-  })
-
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
-      }
-    }
-  })
-
-  .state('tab.myprivacysettings', {
-    url: "/account/myprivacysettings",
-    views: {
-      'tab-account': {
-        controller: "mySurveyCtrl",
-        templateUrl: "templates/tab-myprivacysettings.html"
-      }
-    }
-  });
+    
+    
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/home');
+  $urlRouterProvider.otherwise('/login');
 
 });

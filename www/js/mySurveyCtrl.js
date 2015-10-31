@@ -58,10 +58,7 @@ angular.module('mysurvey.controllers', [])
 				refCategoryArray.$save(questionExists);
 
 			}
-			
-
     	});
-
 	}
 
 	$scope.minus = function (index, Category, questionLabel, replyText, replyNumber){
