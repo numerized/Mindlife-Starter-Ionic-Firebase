@@ -1,11 +1,14 @@
-app.factory('FirebaseConfig', ["$firebaseAuth", function($firebaseAuth) {
-	var root_url = 'https://audimatr.firebaseio.com';
-	
-	return {
-		'root_url': root_url, 
-		'welcome_message': root_url+'/welcome_message',
-		'user': root_url+'/users',
-		'activities': root_url+'/activities',
-		'connected': root_url+'/.info/connected'
-	};
-}])
+angular
+  .module('starter')
+  .factory('FirebaseConfig', FirebaseConfig);
+  
+function FirebaseConfig ($firebaseAuth) {
+  var root_url = 'https://mindlife-starter-ion.firebaseio.com/';
+
+  return {
+  	'root_url': root_url, 
+  	'welcome_message_url': root_url+'/welcome_message',
+  	'users_url': root_url+'/users'
+  };
+}
+FirebaseConfig.$inject = ["$firebaseAuth"];

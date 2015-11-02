@@ -1,6 +1,8 @@
-angular.module('starter.services', [])
+angular
+  .module('starter')
+  .factory('Chats');
 
-.factory('Chats', function() {
+function Chats() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -47,4 +49,4 @@ angular.module('starter.services', [])
       return null;
     }
   };
-});
+}

@@ -1,5 +1,10 @@
-app.config(['$translateProvider', function ($translateProvider) {
+angular
+  .module('starter')
+  .config(config);
+
+function config ($translateProvider) {
   $translateProvider.translations('en', {
+    'INTERNAL_LOGIN_TITLE':'Welcome',
     'LOGIN_TITLE': 'Welcome To the Inspire Aspire App',
     'LOGIN_TEXT': 'Sign In',
     'LOGIN_PASSWORD_PLACEHOLDER': 'Password',
@@ -39,6 +44,7 @@ app.config(['$translateProvider', function ($translateProvider) {
   });
  
   $translateProvider.translations('fr', {
+    'INTERNAL_LOGIN_TITLE':'Bienvenue',
     'LOGIN_TITLE': 'Bienvenue sur l\'appli Inspire Aspire',
     'LOGIN_TEXT': 'Connectez Vous',
     'LOGIN_PASSWORD_PLACEHOLDER': 'Mot de Passe',
@@ -78,4 +84,5 @@ app.config(['$translateProvider', function ($translateProvider) {
   });
   $translateProvider.fallbackLanguage(['en', 'fr']);
   
-}]);
+}
+config.$inject = ["$translateProvider"];

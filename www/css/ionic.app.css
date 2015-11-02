@@ -7699,3 +7699,10 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+button .spinner svg {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  width: 28px !important;
+  height: 28px !important; }

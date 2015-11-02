@@ -1,14 +1,14 @@
-// Ionic Starter App
+angular.module('starter', [
+  'ionic', 
+  'login.controllers', 
+  'starter.controllers',
+  'starter.home',
+  'pascalprecht.translate', 
+  'ngResource', 
+  'firebase', 
+  'ngCordova'])
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
-var app = angular.module('starter', [
-  'ionic', 'mysurvey.controllers', 'login.controllers', 'starter.controllers', 'starter.services', 'pascalprecht.translate', 'ngResource', 'firebase', 'ngCordova'])
-
-.run(function($ionicSlideBoxDelegate, $sce, $ionicPlatform, $state, $rootScope, $timeout, $interval, $cordovaDevice, $firebaseObject, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
+.run(function($firebaseAuth, $ionicSlideBoxDelegate, $sce, $ionicPlatform, $state, $rootScope, $timeout, $interval, $cordovaDevice, $firebaseObject, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
 
   
   $rootScope.spinner = false;
@@ -16,45 +16,167 @@ var app = angular.module('starter', [
 
   $rootScope.goHomeAndAnim = function ()
   {
-    /*$rootScope.numberActivitiesCounter = null;
-    // anything you want can go here and will safely be run on the next digest.
-    var refUserCardsStatistics = new Firebase(FirebaseConfig.user+'/'+$rootScope.authData.uid+'/cards/statistics');
-    var FirebaseUserCardsStatistics = $firebaseObject(refUserCardsStatistics);
-    FirebaseUserCardsStatistics.$loaded(function(v)
-      {
-        $rootScope.statistics = v;
-        $rootScope.wheelProgress = v.numberActivities;
-          $interval(function() {
-            if ($rootScope.numberActivitiesCounter < v.numberActivities)
-            {
-                $rootScope.numberActivitiesCounter += 1;
-              }
-          }, 10);
-      }
-    );
-  */
-    if($rootScope.categoryClassPrevious)
-    {
-      $rootScope.categoryClass = $rootScope.categoryClassPrevious;
-      $rootScope.categoryClassPrevious = null;      
-    }
-
     $state.go('home', null, { reload: true, notify: true });
-      
   }
 
   $rootScope.goHelp = function ()
   {
-    $rootScope.categoryClassPrevious = $rootScope.categoryClass;
-    $rootScope.categoryClass = $sce.trustAsHtml(".bar {background: #FF9856!important;} .co-content div div div { border-radius: 50%; background-image:url(img/cards/CONNECTED/category_CONNECTED.png); background-size:cover; background-position: center;} ion-content {background: linear-gradient(to top left, #ffe3bc, #FFDCAC 10%, #F9C79E 20%, #F4BB93 27%, #F9B483 35%, #FFAC77 50%, #FF9856 63%, #f58e4b 93%, #f58e4b);}.list h2, .list p {color: rgb(98, 13, 13) !important;} input[type='text'], textarea {border: 0; color: rgb(55, 68, 82)!important; font-size: 20px;  line-height: 1.2em;}");
     $state.go('tabs.help');
   }
 
   $rootScope.goAccount = function ()
   {
-    $rootScope.categoryClassPrevious = $rootScope.categoryClass;
-    $rootScope.categoryClass = $sce.trustAsHtml(".bar {background: #B5D36A!important;} .co-content div div div {border-radius: 50%; background-image:url(img/cards/SUSTAINABLE/category_SUSTAINABLE.png); background-size:cover; background-position: center;} ion-content {background: linear-gradient(to top left, #E0EDC5, #d1e1af 10%, #C5E08B 20%, #BEDA80 27%, #BBD57A 35%, #BBD57A 50%, #B5D36A 63%, #9AB84F 93%, #8bb862);} .list h2, .list p {color: rgb(55, 68, 82) !important} input[type='text'], textarea {border: 0; color: rgb(55, 68, 82)!important; font-size: 20px; line-height: 1.2em;}");
     $state.go('tabs.account');
+  }
+
+  var ref = new Firebase(FirebaseConfig.root_url);
+  $rootScope.authObj = $firebaseAuth(ref);
+
+  $rootScope.authObj.$onAuth(function(authData) {
+    if (authData === null) {
+      //console.log("Not logged in yet");
+    } else {
+      $rootScope.onAuthUser(); // This will display the user's name in our view
+      console.log("Logged in as", authData.uid);
+    }
+  });
+
+  $rootScope.unAuth = function ()
+  {
+    var ref = new Firebase(FirebaseConfig.root_url);
+    ref.unauth();
+    $rootScope.privateData = null;
+    $state.go('login');
+    
+  }
+
+  $rootScope.onAuthUser = function () {
+
+    // we would probably save a profile when we register new users on our site
+    // we could also read the profile to see if it's null
+    // here we will just simulate this with an isNewUser boolean
+    var ref = new Firebase(FirebaseConfig.users_url);
+
+    var onAuthCallback = function(authData) {
+      if (authData) {
+        console.log(FirebaseConfig.users_url+authData.uid)
+        var userRef = new Firebase(FirebaseConfig.root_url+authData.uid);
+        
+        $timeout(function () {
+          $rootScope.authData = authData;
+
+          if(authData.provider == 'twitter')
+          {
+            $rootScope.ownerPictureUrl = authData.twitter.cachedUserProfile.profile_image_url;
+          }
+          else if (authData.provider == 'facebook')
+          {
+            $rootScope.ownerPictureUrl = authData.facebook.cachedUserProfile.picture.data.url;
+          }
+
+          // Attach an asynchronous callback to read the data at our posts reference
+          userRef.once('value', function(snapshot) {
+
+            console.log('test')
+            
+            if (!snapshot.val()) {
+              userRef.set({
+                provider: authData.provider,
+                name: getName(authData),
+                email: getEmail(authData)?getEmail(authData):null,
+                picture: $rootScope.ownerPictureUrl,
+                accountCreationDate: Firebase.ServerValue.TIMESTAMP
+              });
+            }
+            else {
+              userRef.update({
+                name: getName(authData),
+                email: getEmail(authData)?getEmail(authData):null,
+                picture: $rootScope.ownerPictureUrl,
+                lastConnexionDate:Firebase.ServerValue.TIMESTAMP
+              });
+            }
+          });
+        });     
+      }
+    };
+    
+    // find a suitable name based on the meta info given by each provider
+    function getName(authData) {
+      switch(authData.provider) {
+         case 'password':
+           return authData.password.email.replace(/@.*/, '');
+         case 'twitter':
+           return authData.twitter.displayName;
+         case 'facebook':
+           return authData.facebook.displayName;
+         case 'google':
+           return authData.google.displayName;
+      }
+    }
+
+    function getEmail(authData) {
+      switch(authData.provider) {
+         case 'password':
+           return authData.password.email;
+         case 'twitter':
+           return authData.twitter.displayName;
+         case 'facebook':
+           return authData.facebook.email;
+         case 'google':
+           return authData.google.email;
+      }
+    }
+
+    // Attach the callback
+    ref.onAuth(onAuthCallback);
+    
+  }
+
+  $rootScope.register = function (email, password) {
+
+    $rootScope.spinner = true;
+    $rootScope.authObj.$createUser({
+      email: email,
+      password: password
+    }).then(function(userData) {
+      console.log("User " + userData.uid + " created successfully!");
+      $rootScope.login_message = 'your account has been created, you\'ll now be connected automatically';
+
+      return $rootScope.authObj.$authWithPassword({
+        email: email,
+        password: password
+      });
+    }).catch(function(error) {
+        if(error.code == "INVALID_ARGUMENTS")
+        {
+          $rootScope.login_message = 'invalid credentials';
+          
+        }
+        else if(error.code == "INVALID_USER")
+        {
+          $rootScope.login_message = 'invalid_user';
+          
+        }
+        else if(error.code == "INVALID_EMAIL")
+        {
+          $rootScope.login_message = 'The email provided is invalid';
+          
+        }
+        else if(error.code == "EMAIL_TAKEN")
+        {
+          $rootScope.login_message = 'The email provided is already taken';
+          $rootScope.userLogin(email, password);
+          
+        }
+        else if(error)
+        {
+          $rootScope.login_message = 'Please verify your informations';
+          //$rootScope.userLogin(email, password);
+        }
+      
+      $rootScope.spinner = false;
+    });
   }
 
   $ionicPlatform.ready(function() {
@@ -74,7 +196,7 @@ var app = angular.module('starter', [
           }
         });
       }
-      // console.log("online:" + navigator.onLine);
+      
       //  Check for network connexion while using the app for mobile
       $rootScope.online = navigator.onLine ? 'online' : 'offline';
       $rootScope.$apply();
@@ -100,30 +222,11 @@ var app = angular.module('starter', [
       }
     }
 
-    //check network connexion all devices through firebase to adapt for desktop
-    /*    var connectedRef = new Firebase(FirebaseConfig.connected);
-    connectedRef.on("value", function(snap) {
-      if (snap.val() === true) {
-        $rootScope.online = "online";
-        $rootScope.$apply();
-      } else {
-        $rootScope.online = "offline";
-        $rootScope.$apply();
-      }
-    });
-
-    */
-
-    /*if(!$rootScope.uid && $state.$current.name !== 'login')
-    {
-      $rootScope.authData = null;
-      $state.go('login');
-    }*/   
-
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
     }
+
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       $cordovaStatusbar.style();
@@ -143,11 +246,6 @@ var app = angular.module('starter', [
 
     $rootScope.device = $cordovaDevice.getDevice();
 
-    if(ionic.Platform.isAndroid())
-    {
-      HardwareBackButtonManager.disable();
-    } 
-
     $cordovaGlobalization.getPreferredLanguage().then(
       function(result) {
         $rootScope.globalization = result;
@@ -161,142 +259,4 @@ var app = angular.module('starter', [
     });
 
   }, false);
-})
-
-.directive('noScroll', function($document) {
-
-  return {
-    restrict: 'A',
-    link: function($scope, $element, $attr) {
-
-      $document.on('touchmove', function(e) {
-        e.preventDefault();
-      });
-    }
-  }
-})
-
-.directive('textarea', function(){
-    return {
-        restrict: 'E',
-        scope: {
-            'noIonic': '='
-        },
-        link: function(scope, element, attr){
-            if(scope.noIonic){
-                element.bind('touchend  touchmove touchstart', function(e){
-                    e.stopPropagation();
-                });    
-            } 
-        }
-    }
-})
-
-.directive('enterSubmit', function () {
-  return {
-    restrict: 'A',
-    link: function (scope, elem, attrs) {
-     
-      elem.bind('keydown', function(event) {
-        var code = event.keyCode || event.which;
-                
-        if (code === 13) {
-          if (!event.shiftKey) {
-            event.preventDefault();
-            scope.$apply(attrs.enterSubmit);
-          }
-        }
-      });
-    }
-  }
-})
-
-.config(['$ionicConfigProvider', function($ionicConfigProvider) {
-  
-  if(!ionic.Platform.isIOS())
-    $ionicConfigProvider.scrolling.jsScrolling(false);
-  $ionicConfigProvider.views.transition('android');
-  
-}])
-
-.config(function($stateProvider, $urlRouterProvider) {
-
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
-  
-  <!-- -->
-
-  $stateProvider
-
-    .state('login', {
-      url: "/login",
-      templateUrl: "templates/login.html",
-      controller: 'LoginCtrl'
-    })
-    .state('register', {
-      url: "/register",
-      templateUrl: "templates/register.html",
-      controller: 'LoginCtrl'
-    })
-    .state('userLogin', {
-      url: "/user-login",
-      templateUrl: "templates/user-login.html",
-      controller: 'LoginCtrl'
-    })
-    .state('userLoginPasswordReset', {
-      url: "/user-login-password-reset",
-      templateUrl: "templates/user-login-password-reset.html",
-      controller: 'LoginCtrl'
-    })
-    .state('tabs', {
-      url: "/tab",
-      abstract: true,
-      templateUrl: "templates/tabs.html"
-    })
-    .state('home', {
-      url: "/home",
-      parent: "tabs",
-      cache: true, //required
-      views: {
-        'tab-home': {
-          templateUrl: "templates/tab-home.html",
-          controller: 'HomeCtrl'
-        }
-      }
-    })    
-    .state('tabs.account', {
-      url: "/account",
-      views: {
-        'tab-account': {
-          controller: "AccountCtrl",
-          templateUrl: "templates/tab-account.html"
-        }
-      }
-    })
-    .state('tabs.myprivacysettings', {
-      url: "/myprivacysettings",
-      views: {
-        'tab-myprivacysettings': {
-          controller: "mySurveyCtrl",
-          templateUrl: "templates/tab-myprivacysettings.html"
-        }
-      }
-    })
-    .state('tabs.help', {
-      url: "/help",
-      views: {
-        'tab-help': {
-          controller: "HelpCtrl",
-          templateUrl: "templates/tab-help.html"
-        }
-      }
-    })
-    
-    
-
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
-
 });

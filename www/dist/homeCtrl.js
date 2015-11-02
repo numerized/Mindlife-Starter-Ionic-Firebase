@@ -1,0 +1,1 @@
+function HomeController(o,e){var l=this;l.welcome_message="lol"}angular.module("starter.home",[]).controller("HomeController",HomeController),HomeController.$inject=["FirebaseConfig","Chats"];

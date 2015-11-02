@@ -21,3 +21,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+button .spinner svg {
+  position: absolute;
+  top:9px;
+  right:10px;
+  width: 28px!important;
+  height: 28px!important;
+}
+
