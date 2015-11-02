@@ -1,19 +1,19 @@
 <ion-view>
 <ion-nav-buttons side="left">
-  <a class="button button-icon button-clear icon ion-ios-ionic-outline dark" ui-sref='tabs.home'></a>
+  <a class="button button-icon button-clear icon ion-ios-ionic-outline dark" ng-click="goHome()"></a>
 </ion-nav-buttons>
 <ion-nav-buttons side="right"> 
-  <button class="button button-icon button-clear icon dark"
-          ng-click="nextSlide()" ng-show="currentSlide < 4 || !currentSlide">
+  <a class="button button-icon button-clear icon dark"
+          ng-click="nextSlide()" ng-if="currentSlide < 4 || !currentSlide">
     Next
-  </button>
-  <button class="button button-icon button-clear icon dark"
-          ui-sref='home' ng-show="currentSlide == 4">
+  </a>
+  <a class="button button-icon button-clear icon dark"
+          ng-click="goHome()" ng-if="currentSlide == 4">
     I'm In !
-  </button>
+  </a>
 </ion-nav-buttons>
-    <ion-content>
-        <ion-slide-box on-slide-changed="slideHasChanged($index)" delegate-handle="theHelpSlider" show-pager="false">
+   <ion-content>
+     <ion-slide-box on-slide-changed="slideHasChanged($index)" delegate-handle="theHelpSlider" show-pager="false">
       <ion-slide>
         <div class="helpBox brow">
           <div class="col-xs-12 col-md-offset-3 col-md-6">
@@ -52,7 +52,7 @@
         <div class="helpBox brow">
         <div class="col-xs-12 col-md-offset-3 col-md-6">
           <br/><br/><h4>Let your creativity flow and watch your chances of winning, and unlocking the next level, increase with every input! All contributions are eagerly anticipated. Best contributions will receive credits and ideas will be incorporated in the App.<br/><br/><br/></h4>
-          <button class="button button-balanced button-block" ui-sref="home">
+          <button class="button button-balanced button-block" ui-sref="tabs.home">
             I'm In !
           </button>
         </div>

@@ -9,5 +9,14 @@ function configure($stateProvider){
     abstract: true,
     templateUrl: "js/layout/tabs.html"
   })
+  .state('tabs.help', {
+      url: "/help",
+      views: {
+        'tab-help': {
+          controller: "HelpController",
+          templateUrl: "js/layout/help.html"
+        }
+      }
+    })
 }
 configure.$inject = ["$stateProvider"];;

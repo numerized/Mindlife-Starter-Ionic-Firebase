@@ -1,22 +1,21 @@
-angular.module('starter', [
-  'ionic', 
-  'login.controllers', 
-  'starter.controllers',
-  'starter.home',
+angular.module('app', [
+  'ionic',
+  'app.help',
+  'app.home',
   'pascalprecht.translate', 
   'ngResource', 
   'firebase', 
   'ngCordova'])
 
-.run(["$firebaseAuth", "$ionicSlideBoxDelegate", "$sce", "$ionicPlatform", "$state", "$rootScope", "$timeout", "$interval", "$cordovaDevice", "$firebaseObject", "FirebaseConfig", "$cordovaGlobalization", "$translate", "$cordovaStatusbar", "$ionicPopup", function($firebaseAuth, $ionicSlideBoxDelegate, $sce, $ionicPlatform, $state, $rootScope, $timeout, $interval, $cordovaDevice, $firebaseObject, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
+.run(["$firebaseAuth", "$ionicPlatform", "$state", "$rootScope", "$timeout", "$cordovaDevice", "FirebaseConfig", "$cordovaGlobalization", "$translate", "$cordovaStatusbar", "$ionicPopup", function($firebaseAuth, $ionicPlatform, $state, $rootScope, $timeout, $cordovaDevice, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
 
   
   $rootScope.spinner = false;
   $translate.use('en');
 
-  $rootScope.goHomeAndAnim = function ()
+  $rootScope.goHome = function ()
   {
-    $state.go('tabs.home', null, { reload: true, notify: true });
+    $state.go('tabs.home');
   }
 
   $rootScope.goHelp = function ()
@@ -47,7 +46,6 @@ angular.module('starter', [
   {
     var ref = new Firebase(FirebaseConfig.root_url);
     ref.unauth();
-    $rootScope.privateData = null;
     $state.go('login');
     
   }
@@ -135,52 +133,6 @@ angular.module('starter', [
     
   }
 
-  $rootScope.register = function (email, password) {
-
-    $rootScope.spinner = true;
-    $rootScope.authObj.$createUser({
-      email: email,
-      password: password
-    }).then(function(userData) {
-      console.log("User " + userData.uid + " created successfully!");
-      $rootScope.login_message = 'your account has been created, you\'ll now be connected automatically';
-
-      return $rootScope.authObj.$authWithPassword({
-        email: email,
-        password: password
-      });
-    }).catch(function(error) {
-        if(error.code == "INVALID_ARGUMENTS")
-        {
-          $rootScope.login_message = 'invalid credentials';
-          
-        }
-        else if(error.code == "INVALID_USER")
-        {
-          $rootScope.login_message = 'invalid_user';
-          
-        }
-        else if(error.code == "INVALID_EMAIL")
-        {
-          $rootScope.login_message = 'The email provided is invalid';
-          
-        }
-        else if(error.code == "EMAIL_TAKEN")
-        {
-          $rootScope.login_message = 'The email provided is already taken';
-          $rootScope.userLogin(email, password);
-          
-        }
-        else if(error)
-        {
-          $rootScope.login_message = 'Please verify your informations';
-          //$rootScope.userLogin(email, password);
-        }
-      
-      $rootScope.spinner = false;
-    });
-  }
-
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -199,7 +151,7 @@ angular.module('starter', [
         });
       }
       
-      //  Check for network connexion while using the app for mobile
+      //  Check for network connexion while using the starter for mobile
       $rootScope.online = navigator.onLine ? 'online' : 'offline';
       $rootScope.$apply();
 

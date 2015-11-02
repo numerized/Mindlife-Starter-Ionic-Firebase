@@ -10,11 +10,11 @@
 </ion-nav-buttons>
   <ion-content>
     <div class="offline" ng-if="online == 'offline'" class="animate-if">
-      <p>You are now in offline mode.<br/>You can continue to use the app.</p>
+      <p>{{ 'ALL_OFFLINE_MODE_TITLE' | translate }}<br/>{{ 'AllC_OFFLINE_MODE_DESC' | translate }}</p>
     </div>
     <div class="brow">
       <div class="col-xs-12">
-        test : {{ 'HomC_WELCOME_MESSAGE' | translate }}
+        {{ 'HomC_WELCOME_MESSAGE' | translate }}
       </div>
     </div>
   </ion-content>

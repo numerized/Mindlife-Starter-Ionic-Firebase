@@ -1,7 +1,7 @@
 angular
 	.module('login.controllers', [])
 
-.controller('LoginCtrl', function ($scope, $rootScope, $timeout, $location, $interval, $state, FirebaseConfig, $firebaseObject, $firebaseArray, $firebaseAuth, $translate) {
+.controller('LoginCtrl', ["$scope", "$rootScope", "$timeout", "$location", "$interval", "$state", "FirebaseConfig", "$firebaseObject", "$firebaseArray", "$firebaseAuth", "$translate", function ($scope, $rootScope, $timeout, $location, $interval, $state, FirebaseConfig, $firebaseObject, $firebaseArray, $firebaseAuth, $translate) {
 
 	var times = 0;
 	$rootScope.firstTimeUser = false;
@@ -230,9 +230,9 @@ angular
 		});
 
 	}
-})
+}])
 
-.controller('AccountCtrl', function ($sce, $scope, $rootScope, $state, $firebaseObject, $cordovaStatusbar, FirebaseConfig, $translate) {
+.controller('AccountCtrl', ["$sce", "$scope", "$rootScope", "$state", "$firebaseObject", "$cordovaStatusbar", "FirebaseConfig", "$translate", function ($sce, $scope, $rootScope, $state, $firebaseObject, $cordovaStatusbar, FirebaseConfig, $translate) {
   
 	$rootScope.spinner = false;
 
@@ -315,4 +315,4 @@ angular
 		});
 	}    
 
-});
+}]);

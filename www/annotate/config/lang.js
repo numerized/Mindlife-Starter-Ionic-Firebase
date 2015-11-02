@@ -4,6 +4,9 @@ angular
 
 function config ($translateProvider) {
   $translateProvider.translations('en', {
+    'AllC_OFFLINE_MODE_TITLE': 'You are now in offline mode.',
+    'AllC_OFFLINE_MODE_DESC': 'You can continue to use the app.',
+    'AllC_LOADING_MESSAGE':'Please Wait',
     'INTERNAL_LOGIN_TITLE':'Welcome',
     'LOGIN_TITLE': 'Welcome To the Inspire Aspire App',
     'LOGIN_TEXT': 'Sign In',
@@ -44,6 +47,9 @@ function config ($translateProvider) {
   });
  
   $translateProvider.translations('fr', {
+    'AllC_OFFLINE_MODE_TITLE': 'Vous êtes désormais en mode Hors connexion.',
+    'AllC_OFFLINE_MODE_DESC': 'Vous pouvez continuer à utiliser l\'app.',
+    'AllC_LOADING_MESSAGE':'Veuillez patienter',
     'INTERNAL_LOGIN_TITLE':'Bienvenue',
     'LOGIN_TITLE': 'Bienvenue sur l\'appli Inspire Aspire',
     'LOGIN_TEXT': 'Connectez Vous',
@@ -85,3 +91,4 @@ function config ($translateProvider) {
   $translateProvider.fallbackLanguage(['en', 'fr']);
   
 }
+config.$inject = ["$translateProvider"];

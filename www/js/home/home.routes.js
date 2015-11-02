@@ -12,7 +12,7 @@ function configure($stateProvider) {
     views: {
       'tab-home': {
         controller: 'HomeController as HomC',
-        templateUrl: "templates/tab-home.html"
+        templateUrl: "js/home/home.html"
       }
     }
   });

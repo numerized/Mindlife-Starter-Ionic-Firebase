@@ -1,6 +1,6 @@
 angular
   .module('app.help', [])
-  .controller('HelpController', ["$scope", "$ionicSlideBoxDelegate", "$state", "$firebaseArray", "FirebaseConfig", "$ionicScrollDelegate", function($scope, $ionicSlideBoxDelegate, $state, $firebaseArray, FirebaseConfig, $ionicScrollDelegate) {
+  .controller('HelpController', function($scope, $ionicSlideBoxDelegate, $state, $firebaseArray, FirebaseConfig, $ionicScrollDelegate) {
 
   $scope.currentSlide = 0;
 
@@ -23,4 +23,4 @@ angular
     slider.update();
   }
 
-}])
+})

@@ -1,8 +1,6 @@
-angular.module('app.controllers', [])
-
-.controller('DashCtrl', function($scope) {})
-
-.controller('HelpCtrl', function($scope, $ionicSlideBoxDelegate, $state, $firebaseArray, FirebaseConfig, $ionicScrollDelegate) {
+angular
+  .module('app.help', [])
+  .controller('HelpController', ["$scope", "$ionicSlideBoxDelegate", "$state", "$firebaseArray", "FirebaseConfig", "$ionicScrollDelegate", function($scope, $ionicSlideBoxDelegate, $state, $firebaseArray, FirebaseConfig, $ionicScrollDelegate) {
 
   $scope.currentSlide = 0;
 
@@ -25,4 +23,4 @@ angular.module('app.controllers', [])
     slider.update();
   }
 
-})
+}])

@@ -39,20 +39,21 @@
     <script src="lib/00custom/angular-ios9-uiwebview.patch.js"></script>
 
     <!-- your app's js -->
-    <script src="js/app.controller.js"></script>
+    <script src="js/app.js"></script>
     <script src="js/app.routes.js"></script>
     <script src="js/layout/layout.routes.js"></script>
-    <script src="js/lang.js"></script>
-    <script src="js/firebaseFactory.js"></script>
-    <script src="js/myPrivacySettingsFactory.js"></script>
-    <script src="js/loginCtrl.js"></script>    
-    <script src="js/controllers.js"></script>
-    <script src="js/home.controller.js"></script>
-    <script src="js/home.routes.js"></script>
-    <script src="js/accountCtrl.js"></script>
+    <script src="js/layout/help.controller.js"></script>
+    <script src="js/config/ionic.config.js"></script>
+    <script src="js/config/firebase.factory.js"></script>
+    <script src="js/config/lang.config.js"></script>
+    <script src="js/account/login.controller.js"></script>
+    <script src="js/account/login.routes.js"></script>   
+    <script src="js/account/account.controller.js"></script>
+    <script src="js/myPrivacySettings.factory.js"></script>
+    <script src="js/home/home.controller.js"></script>
+    <script src="js/home/home.routes.js"></script>    
     <script src="js/services.js"></script>
     <script src="js/templates.js"></script>
-    <script src="js/ionic-config.js"></script>
     <script src="lib/00custom/enterSubmit-directive.js"></script>
     <script src="lib/00custom/textarea-directive.js"></script>
 
@@ -63,7 +64,6 @@
       Templates are in the /templates folder (but you could also
       have templates inline in this html file if you'd like).
     -->
-    <style ng-bind-html="categoryClass"></style>
     <ion-nav-view class="container-fluid"></ion-nav-view>
     <script>
        angular.element(document).ready(function() {

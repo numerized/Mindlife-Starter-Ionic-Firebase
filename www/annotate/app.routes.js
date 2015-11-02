@@ -10,26 +10,6 @@ function config ($stateProvider, $urlRouterProvider) {
   // Each state's controller can be found in controllers.js
 
   $stateProvider
-    .state('login', {
-      url: "/login",
-      templateUrl: "templates/login.html",
-      controller: 'LoginCtrl as LogC'
-    })
-    .state('register', {
-      url: "/register",
-      templateUrl: "templates/register.html",
-      controller: 'LoginCtrl'
-    })
-    .state('userLogin', {
-      url: "/user-login",
-      templateUrl: "templates/user-login.html",
-      controller: 'LoginCtrl'
-    })
-    .state('userLoginPasswordReset', {
-      url: "/user-login-password-reset",
-      templateUrl: "templates/user-login-password-reset.html",
-      controller: 'LoginCtrl'
-    })
     .state('tabs.account', {
       url: "/account",
       views: {
@@ -47,17 +27,7 @@ function config ($stateProvider, $urlRouterProvider) {
           templateUrl: "templates/tab-myprivacysettings.html"
         }
       }
-    })
-    .state('tabs.help', {
-      url: "/help",
-      views: {
-        'tab-help': {
-          controller: "HelpCtrl",
-          templateUrl: "templates/tab-help.html"
-        }
-      }
-    })
-    
+    })    
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 

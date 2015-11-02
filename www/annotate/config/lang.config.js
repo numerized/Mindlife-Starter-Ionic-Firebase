@@ -89,6 +89,7 @@ function config ($translateProvider) {
     'HomC_WELCOME_MESSAGE': 'Bienvenue à la Maison'
   });
   $translateProvider.fallbackLanguage(['en', 'fr']);
+  $translateProvider.useSanitizeValueStrategy('sanitize');
   
 }
 config.$inject = ["$translateProvider"];
