@@ -2,10 +2,11 @@ angular
   .module('starter.home', [])
   .controller('HomeController', HomeController);
 
-HomeController.$inject = ['FirebaseConfig', 'Chats'];
+HomeController.$inject = ['FirebaseConfig'];
 
-function HomeController (FirebaseConfig, Chats) {
+function HomeController (FirebaseConfig) {
+
   var vm = this;
-  vm.welcome_message = 'lol';
+  vm.welcome_message = "LOL";
 
-}
+};

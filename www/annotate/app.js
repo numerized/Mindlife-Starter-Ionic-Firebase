@@ -16,7 +16,7 @@ angular.module('starter', [
 
   $rootScope.goHomeAndAnim = function ()
   {
-    $state.go('home', null, { reload: true, notify: true });
+    $state.go('tabs.home', null, { reload: true, notify: true });
   }
 
   $rootScope.goHelp = function ()
@@ -36,8 +36,10 @@ angular.module('starter', [
     if (authData === null) {
       //console.log("Not logged in yet");
     } else {
-      $rootScope.onAuthUser(); // This will display the user's name in our view
+      //$rootScope.onAuthUser(); // This will display the user's name in our view
       console.log("Logged in as", authData.uid);
+      $state.go('tabs.home');
+
     }
   });
 
@@ -77,7 +79,7 @@ angular.module('starter', [
           // Attach an asynchronous callback to read the data at our posts reference
           userRef.once('value', function(snapshot) {
 
-            console.log('test')
+            //console.log('test')
             
             if (!snapshot.val()) {
               userRef.set({

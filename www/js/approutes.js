@@ -43,7 +43,7 @@ function config ($stateProvider, $urlRouterProvider) {
       views: {
         'tab-home': {
           templateUrl: "templates/tab-home.html",
-          controller: 'HomeCtrl'
+          controller: 'HomeController as vm'
         }
       }
     })    

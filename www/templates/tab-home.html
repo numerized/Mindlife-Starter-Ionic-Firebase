@@ -9,9 +9,13 @@
   <a class="button button-icon button-clear icon ion-gear-a" ng-click="goAccount()"></a>
 </ion-nav-buttons>
   <ion-content>
-  <div class="offline" ng-if="online == 'offline'" class="animate-if">
-    <p>You are now in offline mode.<br/>You can continue to use the app.</p>
-  </div>
-    {{welcome_message}}
+    <div class="offline" ng-if="online == 'offline'" class="animate-if">
+      <p>You are now in offline mode.<br/>You can continue to use the app.</p>
+    </div>
+    <div class="brow">
+      <div class="col-xs-12">
+        test : {{vm.welcome_message}}
+      </div>
+    </div>
   </ion-content>
 </ion-view>
