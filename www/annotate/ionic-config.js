@@ -1,5 +1,5 @@
 angular
-  .module('starter')
+  .module('app')
   .config(ionicConfig);
 
 function ionicConfig ($ionicConfigProvider) {

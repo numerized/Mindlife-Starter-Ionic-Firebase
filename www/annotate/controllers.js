@@ -1,8 +1,6 @@
-angular.module('starter.controllers', [])
+angular.module('app.controllers', [])
 
 .controller('DashCtrl', ["$scope", function($scope) {}])
-
-.controller('HomeCtrl', ["$scope", function($scope) {}])
 
 .controller('HelpCtrl', ["$scope", "$ionicSlideBoxDelegate", "$state", "$firebaseArray", "FirebaseConfig", "$ionicScrollDelegate", function($scope, $ionicSlideBoxDelegate, $state, $firebaseArray, FirebaseConfig, $ionicScrollDelegate) {
 

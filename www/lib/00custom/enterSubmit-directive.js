@@ -6,7 +6,7 @@
 * @example <div acme-order-calendar-range></div>
 */
 angular
-  .module('starter')
+  .module('app')
   .directive('enterSubmit', enterSubmit);
 
 function enterSubmit() {

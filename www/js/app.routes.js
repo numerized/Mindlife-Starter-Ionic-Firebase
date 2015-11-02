@@ -1,5 +1,5 @@
 angular
-    .module('starter')
+    .module('app')
     .config(config);
 
 function config ($stateProvider, $urlRouterProvider) {
@@ -10,11 +10,10 @@ function config ($stateProvider, $urlRouterProvider) {
   // Each state's controller can be found in controllers.js
 
   $stateProvider
-
     .state('login', {
       url: "/login",
       templateUrl: "templates/login.html",
-      controller: 'LoginCtrl'
+      controller: 'LoginCtrl as LogC'
     })
     .state('register', {
       url: "/register",
@@ -31,27 +30,11 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl: "templates/user-login-password-reset.html",
       controller: 'LoginCtrl'
     })
-    .state('tabs', {
-      url: "/tab",
-      abstract: true,
-      templateUrl: "templates/tabs.html"
-    })
-    .state('tabs.home', {
-      url: "/home",
-      parent: "tabs",
-      cache: true, //required
-      views: {
-        'tab-home': {
-          templateUrl: "templates/tab-home.html",
-          controller: 'HomeController as vm'
-        }
-      }
-    })    
     .state('tabs.account', {
       url: "/account",
       views: {
         'tab-account': {
-          controller: "AccountCtrl",
+          controller: "AccountController as AccC",
           templateUrl: "templates/tab-account.html"
         }
       }
@@ -75,8 +58,6 @@ function config ($stateProvider, $urlRouterProvider) {
       }
     })
     
-    
-
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 

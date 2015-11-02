@@ -1,5 +1,5 @@
 angular
-  .module('starter')
+  .module('app')
   .config(config);
 
 function config ($translateProvider) {
@@ -40,7 +40,7 @@ function config ($translateProvider) {
     'SWIPE_VIEW_TITLE': 'All Qualities',
     'ACTIVITIES_VIEW_TITLE': 'Your Actions',
     'PROCEED_BUTTON': 'Continue',
-    'MYCARDS_VIEW_TITLE': 'My Qualities'
+    'HomC_WELCOME_MESSAGE': 'Welcome Home'
   });
  
   $translateProvider.translations('fr', {
@@ -80,7 +80,7 @@ function config ($translateProvider) {
     'SWIPE_VIEW_TITLE': 'Qualités',
     'ACTIVITIES_VIEW_TITLE': 'Tes Actions',
     'PROCEED_BUTTON': 'Continuer',
-    'MYCARDS_VIEW_TITLE': 'Mes Qualités'
+    'HomC_WELCOME_MESSAGE': 'Bienvenue à la Maison'
   });
   $translateProvider.fallbackLanguage(['en', 'fr']);
   

@@ -1,5 +1,5 @@
 angular
-  .module('starter')
+  .module('app')
   .directive('textarea', textarea);
 
 function textarea () {

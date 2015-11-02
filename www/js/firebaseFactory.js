@@ -1,5 +1,5 @@
 angular
-  .module('starter')
+  .module('app')
   .factory('FirebaseConfig', FirebaseConfig);
   
 function FirebaseConfig ($firebaseAuth) {

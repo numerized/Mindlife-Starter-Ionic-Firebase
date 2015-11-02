@@ -32,6 +32,7 @@ gulp.task('sass', function(done) {
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
   gulp.watch('./www/templates/**/*.html', ['cache_templates']);
+  gulp.watch('./www/js/**/*.html', ['cache_templates']);
   gulp.watch('./www/js/**/*.js', ['ng-annotate']);
   gulp.watch('./www/annotate/**/*.js', ['compress']);
 });

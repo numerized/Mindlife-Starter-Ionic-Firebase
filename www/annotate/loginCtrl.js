@@ -1,4 +1,5 @@
-angular.module('login.controllers', [])
+angular
+	.module('login.controllers', [])
 
 .controller('LoginCtrl', ["$scope", "$rootScope", "$timeout", "$location", "$interval", "$state", "FirebaseConfig", "$firebaseObject", "$firebaseArray", "$firebaseAuth", "$translate", function ($scope, $rootScope, $timeout, $location, $interval, $state, FirebaseConfig, $firebaseObject, $firebaseArray, $firebaseAuth, $translate) {
 

@@ -1,5 +1,5 @@
 angular
-  .module('starter')
+  .module('app')
   .factory('myPrivacySettingsData');
 
 function myPrivacySettingsData () {

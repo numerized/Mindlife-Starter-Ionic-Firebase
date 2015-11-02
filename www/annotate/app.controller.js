@@ -1,14 +1,15 @@
-angular.module('starter', [
+angular.module('app', [
   'ionic', 
   'login.controllers', 
-  'starter.controllers',
-  'starter.home',
+  'app.controllers',
+  'app.home',
+  'app.account',
   'pascalprecht.translate', 
   'ngResource', 
   'firebase', 
   'ngCordova'])
 
-.run(function($firebaseAuth, $ionicSlideBoxDelegate, $sce, $ionicPlatform, $state, $rootScope, $timeout, $interval, $cordovaDevice, $firebaseObject, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
+.run(["$firebaseAuth", "$ionicSlideBoxDelegate", "$sce", "$ionicPlatform", "$state", "$rootScope", "$timeout", "$interval", "$cordovaDevice", "$firebaseObject", "FirebaseConfig", "$cordovaGlobalization", "$translate", "$cordovaStatusbar", "$ionicPopup", function($firebaseAuth, $ionicSlideBoxDelegate, $sce, $ionicPlatform, $state, $rootScope, $timeout, $interval, $cordovaDevice, $firebaseObject, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
 
   
   $rootScope.spinner = false;
@@ -199,7 +200,7 @@ angular.module('starter', [
         });
       }
       
-      //  Check for network connexion while using the app for mobile
+      //  Check for network connexion while using the starter for mobile
       $rootScope.online = navigator.onLine ? 'online' : 'offline';
       $rootScope.$apply();
 
@@ -261,4 +262,4 @@ angular.module('starter', [
     });
 
   }, false);
-});
+}]);
