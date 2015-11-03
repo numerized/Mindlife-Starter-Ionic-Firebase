@@ -1,19 +1,12 @@
 {
-  "name": "HelloIonic",
+  "name": "Mindlife-Starter-Ionic-Firebase",
   "private": "true",
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.1.0",
-    "ionic-service-core": "~0.1.7",
-    "ionic-service-analytics": "~0.2.0",
-    "ionic-service-push": "~0.1.8"
+    "ionic": "driftyco/ionic-bower#1.1.0"
   },
   "dependencies": {
-    "angucomplete-alt": "~1.1.0",
-    "angular-chart.js": "~0.8.4",
-    "angular-image": "~0.0.4",
     "angular-moment": "~0.10.2",
-    "moment-timezone": "~0.4.0",
-    "ionic-image-lazy-load": "ion-image-lazy-load#*"
+    "moment-timezone": "~0.4.0"
   },
   "resolutions": {
     "angular": "1.4.x"

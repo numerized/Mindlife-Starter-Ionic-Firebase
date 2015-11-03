@@ -1,6 +1,6 @@
 {
-  "name": "audimatR",
-  "app_id": "eebbab84",
+  "name": "Mindlife-Starter-Ionic-Firebase",
+  "app_id": "",
   "gulpStartupTasks": [
     "sass",
     "watch"

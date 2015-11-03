@@ -1,6 +1,10 @@
 # Mindlife-Starter-Ionic-Firebase
 Mindlife-Starter-Ionic-Firebase
 
+Inspired from :
+https://github.com/loicknuchel/ionic-starter
+
+And:
 https://github.com/Wizcorp/phonegap-facebook-plugin
 
 Install
