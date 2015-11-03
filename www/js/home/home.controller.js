@@ -8,5 +8,6 @@ function HomeController (FirebaseConfig, $translate) {
 
   var HomC = this;
   HomC.welcome_message = "Welcome Home";
+  console.log(Config);
 
 };

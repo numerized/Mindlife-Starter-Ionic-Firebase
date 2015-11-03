@@ -24,6 +24,15 @@ function configure($stateProvider) {
     url: "/user-login-password-reset",
     templateUrl: "js/account/user-login-password-reset.html",
     controller: 'LoginController as LogC'
+  })
+  .state('tabs.account', {
+    url: "/account",
+    views: {
+      'tab-account': {
+        controller: "AccountController as AccC",
+        templateUrl: "js/account/account.html"
+      }
+    }
   });
 }
 

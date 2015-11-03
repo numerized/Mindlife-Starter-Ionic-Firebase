@@ -1,1 +1,0 @@
-function HomeController(e,o){var r=this;return this.welcome_message="LOL",console.log(r.welcome_message),r}angular.module("starter.home").controller("HomeController",HomeController),HomeController.$inject=["$scope","FirebaseConfig"];

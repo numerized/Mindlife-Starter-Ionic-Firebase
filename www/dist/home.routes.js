@@ -1,1 +1,0 @@
-function configure(e){e.state("tabs.home",{url:"/home",parent:"tabs",cache:!0,views:{"tab-home":{controller:"HomeController as HomC",templateUrl:"templates/tab-home.html"}}})}angular.module("app.home").config(configure),configure.$inject=["$stateProvider"];

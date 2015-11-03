@@ -1,1 +1,0 @@
-function AccountController(o){var n=this;n.welcome_message="LOLAccount"}angular.module("app").controller("AccountController",AccountController),AccountController.$inject=["FirebaseConfig"];
