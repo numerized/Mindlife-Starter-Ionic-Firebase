@@ -270,3 +270,4 @@ function LoginController($rootScope, $scope, $state, FirebaseConfig) {
 
 	}
 }
+LoginController.$inject = ["$rootScope", "$scope", "$state", "FirebaseConfig"];

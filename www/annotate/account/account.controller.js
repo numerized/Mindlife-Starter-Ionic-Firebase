@@ -7,6 +7,6 @@ AccountController.$inject = ['FirebaseConfig'];
 function AccountController (FirebaseConfig) {
 
   var vm = this;
-  vm.welcome_message = "LOLAccount";
+  vm.welcome_message = "Account";
 
 };

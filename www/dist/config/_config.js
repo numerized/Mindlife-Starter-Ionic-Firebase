@@ -1,0 +1,1 @@
+var Config=function(){"use strict";var e={appVersion:"~",debug:!0,verbose:!0,track:!1,storage:!0,storagePrefix:"app-",emailSupport:"kevin@help.org.uk",backendUrl:"data",parse:{applicationId:"",restApiKey:""},gcm:{senderID:"263462318850",apiServerKey:"AIzaSyDzM4XzyW9HWJNol9OePz4cAXi7QbVANOs"}};return e}();

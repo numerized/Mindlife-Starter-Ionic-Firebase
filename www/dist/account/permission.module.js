@@ -1,0 +1,1 @@
+angular.module("permissions.setter",["permission","user"]).run(["Permission","User",function(n,e){n.defineRole("anonymous",function(n){return e?!1:!0})}]);

@@ -11,3 +11,4 @@ function FirebaseConfig ($firebaseAuth) {
   	'users_url': root_url+'/users/'
   };
 }
+FirebaseConfig.$inject = ["$firebaseAuth"];

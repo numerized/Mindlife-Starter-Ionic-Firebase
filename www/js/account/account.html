@@ -19,7 +19,7 @@
           </div>
           <div class="item item-body">
             <h6>
-              Welcome to the iAspireLab Focus Group for more informations visit us at http://iaspirelab.org<br/>
+              Welcome to the {{AccC.config.contact.name}} app for more informations visit us at {{AccC.config.contact.website}}<br/>
             </h6>
             <span ng-bind-html="privateData.$value"></span>
           </div>
@@ -35,7 +35,16 @@
           <br/>
           <br/>
           <br/>
-            <p style="text-align: center;">Edited by Help2Help Trust<br/> 5 Ravenscroft Avenue, <br/>London NW11 0SA. UK.<br/>Tel: 07976 300300<br/>iaspire@help.org.uk<br/>http://help2help.org.uk<br/>
+            <p style="text-align: center;">
+              {{AccC.config.contact.name}}<br/>
+      {{AccC.config.contact.adressline1}}<br/>
+      {{AccC.config.contact.adressline2}}<br/>
+      {{AccC.config.contact.postcode}}<br/>
+      {{AccC.config.contact.city}}<br/>
+      {{AccC.config.contact.country}}<br/>
+      {{AccC.config.contact.phone1}}<br/>
+      {{AccC.config.contact.phone2}}<br/>
+      {{AccC.config.contact.email}}
           <br/>
           <br/>
           </p>

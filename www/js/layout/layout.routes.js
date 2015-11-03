@@ -10,12 +10,15 @@ function configure($stateProvider){
     templateUrl: "js/layout/tabs.html"
   })
   .state('tabs.help', {
-      url: "/help",
-      views: {
-        'tab-help': {
-          controller: "HelpController",
-          templateUrl: "js/layout/help.html"
-        }
+    url: "/help",
+    views: {
+      'tab-help': {
+        controller: "HelpController",
+        templateUrl: "js/layout/help.html"
       }
-    })
+    },
+    data: {
+        restrictAccess: ['Admin'] // this property will be herited to child views
+      }
+  })
 };

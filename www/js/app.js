@@ -7,11 +7,60 @@ angular.module('app', [
   'firebase', 
   'ngCordova'])
 
-.run(function($firebaseAuth, $ionicPlatform, $state, $rootScope, $timeout, $cordovaDevice, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
+.run(runBlock)
 
+function runBlock($injector, $firebaseAuth, $ionicPlatform, $state, $rootScope, $timeout, $cordovaDevice, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
+
+  checkAuthRights();
+  checkRouteRights();
   
   $rootScope.spinner = false;
   $translate.use('en');
+
+  function checkAuthRights(){
+
+    console.log("authCheck")
+
+    var ref = new Firebase(FirebaseConfig.root_url);
+    $rootScope.authObj = $firebaseAuth(ref);
+
+    $rootScope.authObj.$onAuth(function(authData) {
+      if (authData === null) {
+        console.log("Not logged in yet");
+        $state.go('login');
+      } else {
+        $rootScope.onAuthUser(); // This will display the user's name in our view
+        if($state.$current.name == "login")
+          $state.go('tabs.home');
+      }
+    });
+  }
+
+  function checkRouteRights(){
+    
+    console.log("routeCheck")
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+      console.log('routeChange')
+      if(toState && toState.data && Array.isArray(toState.data.restrictAccess)){
+        console.log('routeChangeif')
+        var restricted = toState.data.restrictAccess;
+        console.log(restricted+' '+toState.name+' '+$rootScope.authData.firebase.role)
+        var logged = $rootScope.authData.firebase.role;
+        console.log(logged+' '+restricted.indexOf(logged))
+        if(logged && restricted.indexOf('notLogged') > -1){
+          event.preventDefault();
+          $state.go('tabs.account');
+        } else if(!logged && restricted.indexOf('logged') > -1){
+          event.preventDefault();
+          $state.go('login');
+        } else if(logged && restricted.indexOf(logged) == -1){
+          console.log('you don\'t have the right')
+          event.preventDefault();
+          
+        }
+      }
+    });
+  }
 
   $rootScope.goHome = function ()
   {
@@ -28,26 +77,11 @@ angular.module('app', [
     $state.go('tabs.account');
   }
 
-  var ref = new Firebase(FirebaseConfig.root_url);
-  $rootScope.authObj = $firebaseAuth(ref);
-
-  $rootScope.authObj.$onAuth(function(authData) {
-    if (authData === null) {
-      //console.log("Not logged in yet");
-    } else {
-      //$rootScope.onAuthUser(); // This will display the user's name in our view
-      console.log("Logged in as", authData.uid);
-      $state.go('tabs.home');
-
-    }
-  });
-
   $rootScope.unAuth = function ()
   {
     var ref = new Firebase(FirebaseConfig.root_url);
     ref.unauth();
-    $state.go('login');
-    
+    $state.go('login');    
   }
 
   $rootScope.onAuthUser = function () {
@@ -59,11 +93,11 @@ angular.module('app', [
 
     var onAuthCallback = function(authData) {
       if (authData) {
-        console.log(FirebaseConfig.users_url+authData.uid)
-        var userRef = new Firebase(FirebaseConfig.root_url+authData.uid);
-        
-        $timeout(function () {
-          $rootScope.authData = authData;
+
+        var userRef = new Firebase(FirebaseConfig.users_url+authData.uid);
+        $rootScope.authData = authData;
+
+        $timeout(function () {          
 
           if(authData.provider == 'twitter')
           {
@@ -76,25 +110,33 @@ angular.module('app', [
 
           // Attach an asynchronous callback to read the data at our posts reference
           userRef.once('value', function(snapshot) {
-
-            //console.log('test')
-            
             if (!snapshot.val()) {
               userRef.set({
                 provider: authData.provider,
+                role:'User',
                 name: getName(authData),
                 email: getEmail(authData)?getEmail(authData):null,
-                picture: $rootScope.ownerPictureUrl,
+                picture: $rootScope.ownerPictureUrl?$rootScope.ownerPictureUrl:null,
                 accountCreationDate: Firebase.ServerValue.TIMESTAMP
-              });
+              })
+              $rootScope.authData.firebase = 
+              {
+                provider: authData.provider,
+                role:'User',
+                name: getName(authData),
+                email: getEmail(authData)?getEmail(authData):null,
+                picture: $rootScope.ownerPictureUrl?$rootScope.ownerPictureUrl:null,
+                accountCreationDate: 'now'
+              };
             }
             else {
               userRef.update({
                 name: getName(authData),
                 email: getEmail(authData)?getEmail(authData):null,
-                picture: $rootScope.ownerPictureUrl,
+                picture: $rootScope.ownerPictureUrl?$rootScope.ownerPictureUrl:null,
                 lastConnexionDate:Firebase.ServerValue.TIMESTAMP
               });
+              $rootScope.authData.firebase = snapshot.val();
             }
           });
         });     
@@ -213,4 +255,4 @@ angular.module('app', [
     });
 
   }, false);
-});
+}

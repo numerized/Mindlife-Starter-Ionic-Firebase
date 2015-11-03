@@ -1,0 +1,1 @@
+function config(o){o.otherwise("/login")}angular.module("app").config(config),config.$inject=["$urlRouterProvider"];

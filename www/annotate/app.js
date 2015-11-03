@@ -9,7 +9,6 @@ angular.module('app', [
 
 .run(["$firebaseAuth", "$ionicPlatform", "$state", "$rootScope", "$timeout", "$cordovaDevice", "FirebaseConfig", "$cordovaGlobalization", "$translate", "$cordovaStatusbar", "$ionicPopup", function($firebaseAuth, $ionicPlatform, $state, $rootScope, $timeout, $cordovaDevice, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
 
-  
   $rootScope.spinner = false;
   $translate.use('en');
 
@@ -33,9 +32,10 @@ angular.module('app', [
 
   $rootScope.authObj.$onAuth(function(authData) {
     if (authData === null) {
-      //console.log("Not logged in yet");
+      console.log("Not logged in yet");
+      $state.go('login');
     } else {
-      //$rootScope.onAuthUser(); // This will display the user's name in our view
+      $rootScope.onAuthUser(); // This will display the user's name in our view
       console.log("Logged in as", authData.uid);
       $state.go('tabs.home');
 
@@ -46,8 +46,7 @@ angular.module('app', [
   {
     var ref = new Firebase(FirebaseConfig.root_url);
     ref.unauth();
-    $state.go('login');
-    
+    $state.go('login');    
   }
 
   $rootScope.onAuthUser = function () {
@@ -59,11 +58,11 @@ angular.module('app', [
 
     var onAuthCallback = function(authData) {
       if (authData) {
-        console.log(FirebaseConfig.users_url+authData.uid)
-        var userRef = new Firebase(FirebaseConfig.root_url+authData.uid);
-        
-        $timeout(function () {
-          $rootScope.authData = authData;
+
+        var userRef = new Firebase(FirebaseConfig.users_url+authData.uid);
+        $rootScope.authData = authData;
+
+        $timeout(function () {          
 
           if(authData.provider == 'twitter')
           {
@@ -76,15 +75,13 @@ angular.module('app', [
 
           // Attach an asynchronous callback to read the data at our posts reference
           userRef.once('value', function(snapshot) {
-
-            //console.log('test')
             
             if (!snapshot.val()) {
               userRef.set({
                 provider: authData.provider,
                 name: getName(authData),
                 email: getEmail(authData)?getEmail(authData):null,
-                picture: $rootScope.ownerPictureUrl,
+                picture: $rootScope.ownerPictureUrl?$rootScope.ownerPictureUrl:null,
                 accountCreationDate: Firebase.ServerValue.TIMESTAMP
               });
             }
@@ -92,7 +89,7 @@ angular.module('app', [
               userRef.update({
                 name: getName(authData),
                 email: getEmail(authData)?getEmail(authData):null,
-                picture: $rootScope.ownerPictureUrl,
+                picture: $rootScope.ownerPictureUrl?$rootScope.ownerPictureUrl:null,
                 lastConnexionDate:Firebase.ServerValue.TIMESTAMP
               });
             }
