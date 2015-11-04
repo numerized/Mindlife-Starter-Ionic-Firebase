@@ -6,7 +6,9 @@ AccountController.$inject = ['FirebaseConfig'];
 
 function AccountController (FirebaseConfig) {
 
-  var vm = this;
-  vm.welcome_message = "Account";
+  console.log(_Config);
+  var AccC = this;
+  AccC.config = _Config;
+  AccC.welcome_message = "Account";
 
 };

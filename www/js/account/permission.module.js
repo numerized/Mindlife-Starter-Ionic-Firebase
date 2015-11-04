@@ -1,6 +1,6 @@
 angular
   .module('fooModule', ['permission'])
-  .run(["Permission", "$q", "$firebaseAuth", function (Permission, $q, $firebaseAuth) {
+  .run(function (Permission, $q, $firebaseAuth) {
     // Define anonymous role
     Permission
     .defineRole('Anonymous', function (stateParams) {
@@ -50,4 +50,4 @@ angular
 
       return deferred.promise;
     });
-  }]);
+  });

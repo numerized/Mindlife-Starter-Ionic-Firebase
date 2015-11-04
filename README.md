@@ -14,3 +14,28 @@ Installing this plugin directly from Cordova Registry currently breaks the symli
 $ git clone https://github.com/Wizcorp/phonegap-facebook-plugin.git
 
 cordova -d plugin add /Users/numerized/Work/00_Github/phonegap-facebook-plugin/ --variable APP_ID="535488459936374" --variable APP_NAME="audimatR"
+
+FIREBASE SECURITY RULES :
+
+{
+  "rules": {
+    "welcome_message": {
+      ".read": true,
+      ".write": true
+    },
+    "users": {
+      "$uid": {
+        "data": {
+        // grants write access to the owner of this user account whose uid must exactly match the key ($uid)
+        ".write": "auth !== null && auth.uid === $uid",
+        // grants read access to to the owner of this user account whose uid must exactly match the key ($uid)
+        ".read": "auth !== null && $uid === auth.uid"
+        },
+        "permission": {
+          ".read": "auth !== null && auth.uid === $uid",
+          ".write": "!data.exists() && newData.exists() && auth !== null && auth.uid == $uid"
+        }
+      }
+    }
+  }
+}

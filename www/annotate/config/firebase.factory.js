@@ -3,7 +3,7 @@ angular
   .factory('FirebaseConfig', FirebaseConfig);
   
 function FirebaseConfig ($firebaseAuth) {
-  var root_url = 'https://mindlife-starter-ion.firebaseio.com/';
+  var root_url = _Config.firebaseUrl;
 
   return {
   	'root_url': root_url, 

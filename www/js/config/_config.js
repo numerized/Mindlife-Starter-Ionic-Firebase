@@ -1,6 +1,7 @@
-var Config = (function(){
+var _Config = (function(){
   'use strict';
   var cfg = {
+    firebaseUrl:'https://mindlife-starter-ion.firebaseio.com/',
     appVersion: '~',
     debug: true, // to toggle features between dev & prod
     verbose: true, // should log in console more infos

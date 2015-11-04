@@ -7,16 +7,21 @@ function configure($stateProvider){
   .state('tabs', {
     url: "/tab",
     abstract: true,
-    templateUrl: "js/layout/tabs.html"
+    templateUrl: "js/layout/tabs.html",
+    data: {
+      permissions: {
+        only: ['Admin']
+      }
+    }
   })
   .state('tabs.help', {
-      url: "/help",
-      views: {
-        'tab-help': {
-          controller: "HelpController",
-          templateUrl: "js/layout/help.html"
-        }
+    url: "/help",
+    views: {
+      'tab-help': {
+        controller: "HelpController",
+        templateUrl: "js/layout/help.html"
       }
-    })
+    }
+  })
 }
 configure.$inject = ["$stateProvider"];;

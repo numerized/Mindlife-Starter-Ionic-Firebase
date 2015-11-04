@@ -5,14 +5,15 @@ angular.module('app', [
   'pascalprecht.translate', 
   'ngResource', 
   'firebase', 
-  'ngCordova'])
+  'ngCordova',
+  'permission',
+  'fooModule'])
 
 .run(runBlock)
 
-function runBlock($injector, $firebaseAuth, $ionicPlatform, $state, $rootScope, $timeout, $cordovaDevice, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
+function runBlock(Permission, $injector, $firebaseAuth, $ionicPlatform, $state, $rootScope, $timeout, $cordovaDevice, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
 
   checkAuthRights();
-  checkRouteRights();
   
   $rootScope.spinner = false;
   $translate.use('en');
@@ -26,38 +27,11 @@ function runBlock($injector, $firebaseAuth, $ionicPlatform, $state, $rootScope, 
 
     $rootScope.authObj.$onAuth(function(authData) {
       if (authData === null) {
-        console.log("Not logged in yet");
         $state.go('login');
       } else {
         $rootScope.onAuthUser(); // This will display the user's name in our view
         if($state.$current.name == "login")
           $state.go('tabs.home');
-      }
-    });
-  }
-
-  function checkRouteRights(){
-    
-    console.log("routeCheck")
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-      console.log('routeChange')
-      if(toState && toState.data && Array.isArray(toState.data.restrictAccess)){
-        console.log('routeChangeif')
-        var restricted = toState.data.restrictAccess;
-        console.log(restricted+' '+toState.name+' '+$rootScope.authData.firebase.role)
-        var logged = $rootScope.authData.firebase.role;
-        console.log(logged+' '+restricted.indexOf(logged))
-        if(logged && restricted.indexOf('notLogged') > -1){
-          event.preventDefault();
-          $state.go('tabs.account');
-        } else if(!logged && restricted.indexOf('logged') > -1){
-          event.preventDefault();
-          $state.go('login');
-        } else if(logged && restricted.indexOf(logged) == -1){
-          console.log('you don\'t have the right')
-          event.preventDefault();
-          
-        }
       }
     });
   }
@@ -109,33 +83,29 @@ function runBlock($injector, $firebaseAuth, $ionicPlatform, $state, $rootScope, 
           }
 
           // Attach an asynchronous callback to read the data at our posts reference
-          userRef.once('value', function(snapshot) {
+          userRef.child('data').once('value', function(snapshot) {
             if (!snapshot.val()) {
-              userRef.set({
+              userRef.child('data').set({
                 provider: authData.provider,
-                role:'User',
                 name: getName(authData),
                 email: getEmail(authData)?getEmail(authData):null,
                 picture: $rootScope.ownerPictureUrl?$rootScope.ownerPictureUrl:null,
-                accountCreationDate: Firebase.ServerValue.TIMESTAMP
+                accountCreationDate: Firebase.ServerValue.TIMESTAMP,
+              });
+              userRef.child('permission').set({
+                role:"User"
               })
-              $rootScope.authData.firebase = 
-              {
-                provider: authData.provider,
-                role:'User',
-                name: getName(authData),
-                email: getEmail(authData)?getEmail(authData):null,
-                picture: $rootScope.ownerPictureUrl?$rootScope.ownerPictureUrl:null,
-                accountCreationDate: 'now'
-              };
             }
             else {
-              userRef.update({
+              userRef.child('data').update({
                 name: getName(authData),
                 email: getEmail(authData)?getEmail(authData):null,
                 picture: $rootScope.ownerPictureUrl?$rootScope.ownerPictureUrl:null,
                 lastConnexionDate:Firebase.ServerValue.TIMESTAMP
               });
+              userRef.child('permission').update({
+                role:"User"
+              })
               $rootScope.authData.firebase = snapshot.val();
             }
           });

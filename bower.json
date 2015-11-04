@@ -6,7 +6,8 @@
   },
   "dependencies": {
     "angular-moment": "~0.10.2",
-    "moment-timezone": "~0.4.0"
+    "moment-timezone": "~0.4.0",
+    "angular-permission": "~1.1.0"
   },
   "resolutions": {
     "angular": "1.4.x"

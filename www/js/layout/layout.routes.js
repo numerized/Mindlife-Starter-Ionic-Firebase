@@ -7,7 +7,12 @@ function configure($stateProvider){
   .state('tabs', {
     url: "/tab",
     abstract: true,
-    templateUrl: "js/layout/tabs.html"
+    templateUrl: "js/layout/tabs.html",
+    data: {
+      permissions: {
+        only: ['Admin']
+      }
+    }
   })
   .state('tabs.help', {
     url: "/help",
@@ -16,9 +21,6 @@ function configure($stateProvider){
         controller: "HelpController",
         templateUrl: "js/layout/help.html"
       }
-    },
-    data: {
-        restrictAccess: ['Admin'] // this property will be herited to child views
-      }
+    }
   })
 };

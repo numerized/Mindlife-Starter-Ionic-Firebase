@@ -14,9 +14,6 @@ function configure($stateProvider) {
         controller: 'HomeController as HomC',
         templateUrl: "js/home/home.html"
       }
-    },
-    data: {
-        restrictAccess: ['User'] // this property will be herited to child views
-      }
+    }
   });
 }

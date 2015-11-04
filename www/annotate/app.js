@@ -5,12 +5,36 @@ angular.module('app', [
   'pascalprecht.translate', 
   'ngResource', 
   'firebase', 
-  'ngCordova'])
+  'ngCordova',
+  'permission',
+  'fooModule'])
 
-.run(["$firebaseAuth", "$ionicPlatform", "$state", "$rootScope", "$timeout", "$cordovaDevice", "FirebaseConfig", "$cordovaGlobalization", "$translate", "$cordovaStatusbar", "$ionicPopup", function($firebaseAuth, $ionicPlatform, $state, $rootScope, $timeout, $cordovaDevice, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
+.run(runBlock)
 
+function runBlock(Permission, $injector, $firebaseAuth, $ionicPlatform, $state, $rootScope, $timeout, $cordovaDevice, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
+
+  checkAuthRights();
+  
   $rootScope.spinner = false;
   $translate.use('en');
+
+  function checkAuthRights(){
+
+    console.log("authCheck")
+
+    var ref = new Firebase(FirebaseConfig.root_url);
+    $rootScope.authObj = $firebaseAuth(ref);
+
+    $rootScope.authObj.$onAuth(function(authData) {
+      if (authData === null) {
+        $state.go('login');
+      } else {
+        $rootScope.onAuthUser(); // This will display the user's name in our view
+        if($state.$current.name == "login")
+          $state.go('tabs.home');
+      }
+    });
+  }
 
   $rootScope.goHome = function ()
   {
@@ -26,21 +50,6 @@ angular.module('app', [
   {
     $state.go('tabs.account');
   }
-
-  var ref = new Firebase(FirebaseConfig.root_url);
-  $rootScope.authObj = $firebaseAuth(ref);
-
-  $rootScope.authObj.$onAuth(function(authData) {
-    if (authData === null) {
-      console.log("Not logged in yet");
-      $state.go('login');
-    } else {
-      $rootScope.onAuthUser(); // This will display the user's name in our view
-      console.log("Logged in as", authData.uid);
-      $state.go('tabs.home');
-
-    }
-  });
 
   $rootScope.unAuth = function ()
   {
@@ -75,23 +84,30 @@ angular.module('app', [
 
           // Attach an asynchronous callback to read the data at our posts reference
           userRef.once('value', function(snapshot) {
-            
             if (!snapshot.val()) {
-              userRef.set({
+              userRef.child('data').set({
                 provider: authData.provider,
                 name: getName(authData),
                 email: getEmail(authData)?getEmail(authData):null,
                 picture: $rootScope.ownerPictureUrl?$rootScope.ownerPictureUrl:null,
-                accountCreationDate: Firebase.ServerValue.TIMESTAMP
+                accountCreationDate: Firebase.ServerValue.TIMESTAMP,
+                
               });
+              userRef.child('permission').set({
+                role:"User"
+              })
             }
             else {
-              userRef.update({
+              userRef.child('data').update({
                 name: getName(authData),
                 email: getEmail(authData)?getEmail(authData):null,
                 picture: $rootScope.ownerPictureUrl?$rootScope.ownerPictureUrl:null,
                 lastConnexionDate:Firebase.ServerValue.TIMESTAMP
               });
+              userRef.child('permission').update({
+                role:"User"
+              })
+              $rootScope.authData.firebase = snapshot.val();
             }
           });
         });     
@@ -210,4 +226,5 @@ angular.module('app', [
     });
 
   }, false);
-}]);
+}
+runBlock.$inject = ["Permission", "$injector", "$firebaseAuth", "$ionicPlatform", "$state", "$rootScope", "$timeout", "$cordovaDevice", "FirebaseConfig", "$cordovaGlobalization", "$translate", "$cordovaStatusbar", "$ionicPopup"];

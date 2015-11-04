@@ -1,7 +1,7 @@
 (function(){
   'use strict';
   angular.module('app')
-    .constant('Config', Config)
+    .constant('_Config', _Config)
     .constant('_', _)
     .constant('moment', moment);
 })();

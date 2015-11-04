@@ -2,13 +2,11 @@ angular
   .module('app.home', [])
   .controller('HomeController', HomeController);
 
-HomeController.$inject = ['FirebaseConfig', '$translate'];
+HomeController.$inject = ['$rootScope', '$scope', 'FirebaseConfig', '$translate'];
 
-function HomeController (FirebaseConfig, $translate, $scope) {
+function HomeController ($rootScope, $scope, FirebaseConfig, $translate) {
 
-  $scope.$on('$ionicView.beforeEnter', function(e) {
-
-    console.log(Config);
+  $scope.$on('$ionicView.loaded', function(e) {
 
   });
 

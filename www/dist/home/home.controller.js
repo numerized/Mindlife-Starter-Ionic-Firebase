@@ -1,1 +1,1 @@
-function HomeController(o,e,n){n.$on("$ionicView.beforeEnter",function(o){console.log(Config)});var l=this;l.welcome_message="Welcome Home"}angular.module("app.home",[]).controller("HomeController",HomeController),HomeController.$inject=["FirebaseConfig","$translate"];
+function HomeController(o,e,l,n){e.$on("$ionicView.loaded",function(o){});var r=this;r.welcome_message="Welcome Home"}angular.module("app.home",[]).controller("HomeController",HomeController),HomeController.$inject=["$rootScope","$scope","FirebaseConfig","$translate"];
