@@ -11,7 +11,7 @@ angular.module('app', [
 
 .run(runBlock)
 
-function runBlock(Permission, $injector, $firebaseAuth, $ionicPlatform, $state, $rootScope, $timeout, $cordovaDevice, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
+function runBlock(Permission, $firebaseAuth, $ionicPlatform, $state, $rootScope, $timeout, $cordovaDevice, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
 
   checkAuthRights();
   
@@ -20,7 +20,7 @@ function runBlock(Permission, $injector, $firebaseAuth, $ionicPlatform, $state, 
 
   function checkAuthRights(){
 
-    console.log("authCheck")
+    //console.log("authCheck")
 
     var ref = new Firebase(FirebaseConfig.root_url);
     $rootScope.authObj = $firebaseAuth(ref);
@@ -29,7 +29,7 @@ function runBlock(Permission, $injector, $firebaseAuth, $ionicPlatform, $state, 
       if (authData === null) {
         $state.go('login');
       } else {
-        $rootScope.onAuthUser(); // This will display the user's name in our view
+        onAuthUser(); // This will display the user's name in our view
         if($state.$current.name == "login")
           $state.go('tabs.home');
       }
@@ -58,7 +58,7 @@ function runBlock(Permission, $injector, $firebaseAuth, $ionicPlatform, $state, 
     $state.go('login');    
   }
 
-  $rootScope.onAuthUser = function () {
+  var onAuthUser = function () {
 
     // we would probably save a profile when we register new users on our site
     // we could also read the profile to see if it's null
@@ -103,9 +103,6 @@ function runBlock(Permission, $injector, $firebaseAuth, $ionicPlatform, $state, 
                 picture: $rootScope.ownerPictureUrl?$rootScope.ownerPictureUrl:null,
                 lastConnexionDate:Firebase.ServerValue.TIMESTAMP
               });
-              userRef.child('permission').update({
-                role:"User"
-              })
               $rootScope.authData.firebase = snapshot.val();
             }
           });

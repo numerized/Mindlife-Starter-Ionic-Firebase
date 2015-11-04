@@ -10,7 +10,7 @@ function configure($stateProvider){
     templateUrl: "js/layout/tabs.html",
     data: {
       permissions: {
-        only: ['Admin']
+        only: ['User', 'Admin']
       }
     }
   })
