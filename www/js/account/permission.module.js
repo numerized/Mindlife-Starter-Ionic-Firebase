@@ -24,7 +24,6 @@ angular
       //authData = authObj.$getAuth();
 
       var permissionUrl = _Config.firebaseUrl+'users/'+authData.uid+'/permission';
-      console.log(permissionUrl)
 
       var userPermissionRef = new Firebase(permissionUrl);
       userPermissionRef.on('value', function(snapshot) {
@@ -53,7 +52,6 @@ angular
       //authData = authObj.$getAuth();
 
       var permissionUrl = _Config.firebaseUrl+'users/'+authData.uid+'/permission';
-      console.log(permissionUrl)
 
       var userPermissionRef = new Firebase(permissionUrl);
       userPermissionRef.on('value', function(snapshot) {
@@ -70,5 +68,35 @@ angular
       });
 
       return deferred.promise;
+    })
+
+    .defineManyRoles(['Trainer', 'Student'], function (stateParams, roleName) {
+      var deferred = $q.defer();
+      console.log(roleName);
+      // This time we will return a promise
+      // If the promise *resolves* then the user has the role, if it *rejects* (you guessed it)
+      var ref = new Firebase(_Config.firebaseUrl);
+      var authData = $firebaseAuth(ref).$getAuth();
+      //authData = authObj.$getAuth();
+
+      var permissionUrl = _Config.firebaseUrl+'users/'+authData.uid+'/permission';
+
+      var userPermissionRef = new Firebase(permissionUrl);
+      userPermissionRef.on('value', function(snapshot) {
+        //console.log(snapshot.val().role)
+        if (snapshot.val().role == roleName) {
+          console.log('AuthCheck '+roleName+' Passed');
+          deferred.resolve();
+        }
+        else
+        {
+          console.log('AuthCheck '+roleName+' Failed, user is only '+snapshot.val().role+'. Needed: '+roleName);
+          deferred.reject();
+        }
+      });
+
+      return deferred.promise;
     });
+
+
   });

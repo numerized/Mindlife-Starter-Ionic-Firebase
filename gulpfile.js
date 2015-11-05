@@ -10,12 +10,28 @@ var minifyHtml    = require('gulp-minify-html');
 var templateCache = require('gulp-angular-templatecache');
 var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
+var gulpDocs = require('gulp-ngdocs');
 
 var paths = {
   sass: ['./scss/**/*.scss']
 };
 
 gulp.task('default', ['sass']);
+
+gulp.task('ngdocs', [], function () {
+  var gulpDocs = require('gulp-ngdocs');
+  var options = {
+    html5Mode: false,
+    startPage: '/api',
+    title: "My Awesome Docs",
+    image: "path/to/my/image.png",
+    imageLink: "http://my-domain.com",
+    titleLink: "/api"
+  }
+  return gulp.src('./www/js/**/*.js')
+    .pipe(gulpDocs.process(options))
+    .pipe(gulp.dest('./docs'));
+});
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
@@ -34,6 +50,7 @@ gulp.task('watch', function() {
   gulp.watch('./www/templates/**/*.html', ['cache_templates']);
   gulp.watch('./www/js/**/*.html', ['cache_templates']);
   gulp.watch('./www/js/**/*.js', ['ng-annotate']);
+  gulp.watch('./www/js/**/*.js', ['ngdocs']);
   gulp.watch('./www/annotate/**/*.js', ['compress']);
 });
 

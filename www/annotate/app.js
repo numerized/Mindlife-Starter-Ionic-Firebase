@@ -83,9 +83,9 @@ function runBlock(Permission, $firebaseAuth, $ionicPlatform, $state, $rootScope,
           }
 
           // Attach an asynchronous callback to read the data at our posts reference
-          userRef.child('data').once('value', function(snapshot) {
+          userRef.child('account').once('value', function(snapshot) {
             if (!snapshot.val()) {
-              userRef.child('data').set({
+              userRef.child('account').set({
                 provider: authData.provider,
                 name: getName(authData),
                 email: getEmail(authData)?getEmail(authData):null,
@@ -97,7 +97,7 @@ function runBlock(Permission, $firebaseAuth, $ionicPlatform, $state, $rootScope,
               })
             }
             else {
-              userRef.child('data').update({
+              userRef.child('account').update({
                 name: getName(authData),
                 email: getEmail(authData)?getEmail(authData):null,
                 picture: $rootScope.ownerPictureUrl?$rootScope.ownerPictureUrl:null,

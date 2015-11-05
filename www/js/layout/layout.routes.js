@@ -10,7 +10,8 @@ function configure($stateProvider){
     templateUrl: "js/layout/tabs.html",
     data: {
       permissions: {
-        only: ['User', 'Admin']
+        only: ['Trainer', 'Student', 'User', 'Admin'],
+        redirectTo: 'login'
       }
     }
   })

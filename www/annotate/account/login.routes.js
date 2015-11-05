@@ -36,8 +36,3 @@ function configure($stateProvider) {
   });
 }
 configure.$inject = ["$stateProvider"];
-
-
-
-
-    

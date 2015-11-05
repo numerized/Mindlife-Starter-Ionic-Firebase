@@ -1,5 +1,24 @@
+/**
+* @ngdoc controller
+* @name login.controller:LoginController
+* @function
+*
+* @description
+* Generate the login views
+*
+* **Note:** This is my second doc page
+*
+* @example
+ <example module="rfx">
+   <file name="index.html">
+       <textarea ng-model="text"rx-autogrow class="input-block-level"></textarea>
+       <pre>{{text}}</pre>
+   </file>
+ </example>
+*/
+
 angular
-	.module('app')
+  .module('app')
   .controller('LoginController', LoginController);
 
 function LoginController($rootScope, $scope, $state, FirebaseConfig) {
@@ -10,6 +29,18 @@ function LoginController($rootScope, $scope, $state, FirebaseConfig) {
 	LogC.login = {};
 	LogC.login_message = null;
 	LogC.spinner = false;
+
+  /**
+  * @ngdoc method
+  * @name register
+  * @methodOf login.controller:LoginController
+  * @description
+  * Register a new user to Firebase Auth system
+  *
+  * @param {string} email Email of the new user
+  * @param {string} password Password of the new user
+  * @returns {Array} The returned item...
+  */
 
   LogC.register = function (email, password) {
 

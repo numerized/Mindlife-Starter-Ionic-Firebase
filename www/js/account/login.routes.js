@@ -35,8 +35,3 @@ function configure($stateProvider) {
     }
   });
 }
-
-
-
-
-    
