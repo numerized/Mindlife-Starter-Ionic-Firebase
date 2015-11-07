@@ -1,23 +1,16 @@
 /**
- * @ngdoc controller
- * @name account.controller:AccountController
- * @element textarea
- * @function
- *
- * @description
- * Generate the account view
- *
- * **Note:** This is my first doc page
- *
- * @example
-   <example module="rfx">
-     <file name="index.html">
-         <textarea ng-model="text"rx-autogrow class="input-block-level"></textarea>
-         <pre>{{text}}</pre>
-     </file>
-   </example>
- */
- angular
+* @ngdoc controller
+* @name app.controller:AccountController
+* @requires FirebaseConfig
+* @function
+*
+* @description
+* Generate the account view
+*
+* **Note:** This is my first doc page
+*
+*/
+angular
   .module('app')
   .controller('AccountController', AccountController);
 

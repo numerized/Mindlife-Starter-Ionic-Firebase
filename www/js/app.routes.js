@@ -11,6 +11,10 @@ function config ($urlRouterProvider) {
 
   
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+  // Instead
+  $urlRouterProvider.otherwise( function($injector) {
+    var $state = $injector.get("$state");
+    $state.go('login');
+  });
 
 }

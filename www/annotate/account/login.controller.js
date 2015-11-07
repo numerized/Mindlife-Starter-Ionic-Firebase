@@ -1,7 +1,6 @@
 /**
 * @ngdoc controller
-* @name login.controller:LoginController
-* @function
+* @name app.controller:LoginController
 *
 * @description
 * Generate the login views
@@ -87,9 +86,28 @@ function LoginController($rootScope, $scope, $state, FirebaseConfig) {
     });
   }
 
+  /**
+  * @ngdoc method
+  * @name returnToLogin
+  * @methodOf login.controller:LoginController
+  * @description
+  * Change current state to login state
+  */
+
   LogC.returnToLogin = function () {
    	$state.go('login');
   }
+
+  /**
+  * @ngdoc method
+  * @name userLogin
+  * @methodOf login.controller:LoginController
+  * @description
+  * Logs in a existing user to Firebase Auth system and triggers the $rootScope.onAuth method
+  *
+  * @param {string} email Email of the existing user
+  * @param {string} password Password of the existing user
+  */
 
 	LogC.userLogin = function (email, password) {
 		

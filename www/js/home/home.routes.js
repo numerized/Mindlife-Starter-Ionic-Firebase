@@ -14,6 +14,12 @@ function configure($stateProvider) {
         controller: 'HomeController as HomC',
         templateUrl: "js/home/home.html"
       }
+    },
+    data: {
+      permissions: {
+        only: ['Admin'],
+        redirectTo: 'tabs.account'
+      }
     }
   });
 }

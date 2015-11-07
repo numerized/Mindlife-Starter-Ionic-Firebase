@@ -1,1 +1,1 @@
-function configure(e){e.state("tabs.home",{url:"/home",parent:"tabs",cache:!0,views:{"tab-home":{controller:"HomeController as HomC",templateUrl:"js/home/home.html"}}})}angular.module("app.home").config(configure),configure.$inject=["$stateProvider"];
+function configure(e){e.state("tabs.home",{url:"/home",parent:"tabs",cache:!0,views:{"tab-home":{controller:"HomeController as HomC",templateUrl:"js/home/home.html"}},data:{permissions:{only:["Admin"],redirectTo:"tabs.account"}}})}angular.module("app.home").config(configure),configure.$inject=["$stateProvider"];

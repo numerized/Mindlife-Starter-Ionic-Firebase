@@ -1,3 +1,19 @@
+// app.js
+/**
+ *
+ * @ngdoc object
+ * @name app
+ * @description
+ *
+ * # app (core module)
+ * The app module is loaded by default when an AngularJS application is started. The module itself
+ * contains the essential components for an AngularJS application to function. The table below
+ * lists a high level breakdown of each of the services/factories, filters, directives and testing
+ * components available within this core module.
+ *
+ * <div doc-module-components="ng"></div>
+ */
+
 angular.module('app', [
   'ionic',
   'app.help',
@@ -27,10 +43,13 @@ function runBlock(Permission, $firebaseAuth, $ionicPlatform, $state, $rootScope,
 
     $rootScope.authObj.$onAuth(function(authData) {
       if (authData === null) {
+
         $state.go('login');
+        
       } else {
+
         onAuthUser(); // This will display the user's name in our view
-        if($state.$current.name == "login")
+        if($state.$current.name == "login" || $state.$current.name == "register" || $state.$current.name == "userLogin")
           $state.go('tabs.home');
       }
     });

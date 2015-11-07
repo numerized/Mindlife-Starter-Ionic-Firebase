@@ -1,29 +1,21 @@
 /**
 * @ngdoc controller
-* @name login.controller:LoginController
-* @function
-*
+* @name app.controller:LoginController
+* 
 * @description
 * Generate the login views
 *
 * **Note:** This is my second doc page
 *
-* @example
- <example module="rfx">
-   <file name="index.html">
-       <textarea ng-model="text"rx-autogrow class="input-block-level"></textarea>
-       <pre>{{text}}</pre>
-   </file>
- </example>
-*/
+**/
 
 angular
   .module('app')
   .controller('LoginController', LoginController);
 
-function LoginController($rootScope, $scope, $state, FirebaseConfig) {
+function LoginController($rootScope, $scope, $state, FirebaseFactory) {
 
-  var ref = new Firebase(FirebaseConfig.root_url);
+  var ref = new Firebase(FirebaseFactory.root_url);
   var register = {};
   var LogC = this;
 	LogC.login = {};
@@ -33,7 +25,7 @@ function LoginController($rootScope, $scope, $state, FirebaseConfig) {
   /**
   * @ngdoc method
   * @name register
-  * @methodOf login.controller:LoginController
+  * @methodOf app.controller:LoginController
   * @description
   * Register a new user to Firebase Auth system
   *
@@ -87,9 +79,28 @@ function LoginController($rootScope, $scope, $state, FirebaseConfig) {
     });
   }
 
+  /**
+  * @ngdoc method
+  * @name returnToLogin
+  * @methodOf app.controller:LoginController
+  * @description
+  * Change current state to login state
+  */
+
   LogC.returnToLogin = function () {
    	$state.go('login');
   }
+
+  /**
+  * @ngdoc method
+  * @name userLogin
+  * @methodOf app.controller:LoginController
+  * @description
+  * Logs in a existing user to Firebase Auth system and triggers the $rootScope.onAuth method
+  *
+  * @param {string} email Email of the existing user
+  * @param {string} password Password of the existing user
+  */
 
 	LogC.userLogin = function (email, password) {
 		

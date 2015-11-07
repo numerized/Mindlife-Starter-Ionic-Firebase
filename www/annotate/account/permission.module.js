@@ -6,8 +6,8 @@ angular
     .defineRole('Anonymous', function (stateParams) {
       // If the returned value is *truthy* then the user has the role, otherwise they don't
       var ref = new Firebase(_Config.firebaseUrl);
-      var authObj = $firebaseAuth(ref);
-      if(authObj.$getAuth())
+      var authData = $firebaseAuth(ref).$getAuth();
+      if(authData)
       {
         return false;
       }

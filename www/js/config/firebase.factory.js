@@ -1,8 +1,13 @@
+/**
+ *@ngdoc service
+ *@name app.factory:FirebaseFactory
+**/
+
 angular
   .module('app')
-  .factory('FirebaseConfig', FirebaseConfig);
+  .factory('FirebaseFactory', FirebaseFactory);
   
-function FirebaseConfig ($firebaseAuth) {
+function FirebaseFactory ($firebaseAuth) {
   var root_url = _Config.firebaseUrl;
 
   return {

@@ -1,1 +1,1 @@
-function config(o){o.otherwise("/login")}angular.module("app").config(config),config.$inject=["$urlRouterProvider"];
+function config(o){o.otherwise(function(o){var n=o.get("$state");n.go("login")})}angular.module("app").config(config),config.$inject=["$urlRouterProvider"];

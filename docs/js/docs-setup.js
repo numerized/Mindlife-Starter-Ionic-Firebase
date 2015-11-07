@@ -1,25 +1,42 @@
 NG_DOCS={
   "sections": {
-    "api": "My Awesome Docs"
+    "api": "Mindlife-Starter-Ionic-Firebase Doc"
   },
   "pages": [
     {
       "section": "api",
-      "id": "account.controller:AccountController",
-      "shortName": "AccountController",
-      "type": "controller",
-      "moduleName": "account",
-      "shortDescription": "Generate the account view",
-      "keywords": "account api class controller doc generate html input-block-level module ng-model rfx rx-autogrow text textarea view"
+      "id": "app",
+      "shortName": "app",
+      "type": "object",
+      "moduleName": "app",
+      "shortDescription": "app (core module)",
+      "keywords": "angularjs api app application breakdown components core default directives doc-module-components essential filters function high level lists loaded module ng object services started table testing"
     },
     {
       "section": "api",
-      "id": "login.controller:LoginController",
+      "id": "app.controller:AccountController",
+      "shortName": "AccountController",
+      "type": "controller",
+      "moduleName": "app",
+      "shortDescription": "Generate the account view",
+      "keywords": "account api app controller doc factory generate view"
+    },
+    {
+      "section": "api",
+      "id": "app.controller:LoginController",
       "shortName": "LoginController",
       "type": "controller",
-      "moduleName": "login",
+      "moduleName": "app",
       "shortDescription": "Generate the login views",
-      "keywords": "api class controller doc email firebase generate html input-block-level item login method module ng-model password register returned rfx rx-autogrow second system text user views"
+      "keywords": "$rootscope api app change controller current doc email existing firebase generate item login logs method onauth password register returned returntologin second system triggers user userlogin views"
+    },
+    {
+      "section": "api",
+      "id": "app.factory:FirebaseFactory",
+      "shortName": "FirebaseFactory",
+      "type": "service",
+      "moduleName": "app",
+      "keywords": "api app factory service"
     }
   ],
   "apis": {
@@ -27,31 +44,28 @@ NG_DOCS={
   },
   "__file": "_FAKE_DEST_/js/docs-setup.js",
   "__options": {
-    "startPage": "/api",
+    "startPage": "/",
     "scripts": [
       "js/angular.min.js",
       "js/angular-animate.min.js",
       "js/marked.js"
     ],
     "styles": [],
-    "title": "My Awesome Docs",
-    "html5Mode": false,
+    "title": "Mindlife-Starter-Ionic-Firebase Doc",
+    "html5Mode": true,
     "editExample": true,
     "navTemplate": false,
     "navContent": "",
     "navTemplateData": {},
-    "image": "img/image.png",
-    "imageLink": "http://my-domain.com",
-    "titleLink": "/api",
     "loadDefaults": {
       "angular": true,
       "angularAnimate": true,
       "marked": true
     }
   },
-  "html5Mode": false,
+  "html5Mode": true,
   "editExample": true,
-  "startPage": "/api",
+  "startPage": "/",
   "scripts": [
     "js/angular.min.js",
     "js/angular-animate.min.js",

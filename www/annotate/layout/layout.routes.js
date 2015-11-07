@@ -7,13 +7,7 @@ function configure($stateProvider){
   .state('tabs', {
     url: "/tab",
     abstract: true,
-    templateUrl: "js/layout/tabs.html",
-    data: {
-      permissions: {
-        only: ['Trainer', 'Student', 'User', 'Admin'],
-        redirectTo: 'login'
-      }
-    }
+    templateUrl: "js/layout/tabs.html"
   })
   .state('tabs.help', {
     url: "/help",

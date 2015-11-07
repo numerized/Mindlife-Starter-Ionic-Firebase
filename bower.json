@@ -2,7 +2,8 @@
   "name": "Mindlife-Starter-Ionic-Firebase",
   "private": "true",
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.1.0"
+    "ionic": "driftyco/ionic-bower#1.1.0",
+    "angular-mocks": "~1.4.7"
   },
   "dependencies": {
     "angular-moment": "~0.10.2",
