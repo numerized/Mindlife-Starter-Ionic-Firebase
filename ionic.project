@@ -1,5 +1,5 @@
 {
-  "name": "Mindlife-parc-app",
+  "name": "Mindlife-Starter-Ionic-Firebase",
   "app_id": "",
   "gulpStartupTasks": [
     "sass",
