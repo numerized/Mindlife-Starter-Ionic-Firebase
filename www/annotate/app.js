@@ -27,7 +27,7 @@ angular.module('app', [
 
 .run(runBlock)
 
-function runBlock(Permission, $firebaseAuth, $ionicPlatform, $state, $rootScope, $timeout, $cordovaDevice, FirebaseConfig, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
+function runBlock(Permission, $firebaseAuth, $ionicPlatform, $state, $rootScope, $timeout, $cordovaDevice, FirebaseFactory, $cordovaGlobalization, $translate, $cordovaStatusbar, $ionicPopup) {
 
   checkAuthRights();
   
@@ -38,7 +38,7 @@ function runBlock(Permission, $firebaseAuth, $ionicPlatform, $state, $rootScope,
 
     //console.log("authCheck")
 
-    var ref = new Firebase(FirebaseConfig.root_url);
+    var ref = new Firebase(FirebaseFactory.root_url);
     $rootScope.authObj = $firebaseAuth(ref);
 
     $rootScope.authObj.$onAuth(function(authData) {
@@ -72,7 +72,7 @@ function runBlock(Permission, $firebaseAuth, $ionicPlatform, $state, $rootScope,
 
   $rootScope.unAuth = function ()
   {
-    var ref = new Firebase(FirebaseConfig.root_url);
+    var ref = new Firebase(FirebaseFactory.root_url);
     ref.unauth();
     $state.go('login');    
   }
@@ -82,12 +82,12 @@ function runBlock(Permission, $firebaseAuth, $ionicPlatform, $state, $rootScope,
     // we would probably save a profile when we register new users on our site
     // we could also read the profile to see if it's null
     // here we will just simulate this with an isNewUser boolean
-    var ref = new Firebase(FirebaseConfig.users_url);
+    var ref = new Firebase(FirebaseFactory.users_url);
 
     var onAuthCallback = function(authData) {
       if (authData) {
 
-        var userRef = new Firebase(FirebaseConfig.users_url+authData.uid);
+        var userRef = new Firebase(FirebaseFactory.users_url+authData.uid);
         $rootScope.authData = authData;
 
         $timeout(function () {          
@@ -242,4 +242,4 @@ function runBlock(Permission, $firebaseAuth, $ionicPlatform, $state, $rootScope,
 
   }, false);
 }
-runBlock.$inject = ["Permission", "$firebaseAuth", "$ionicPlatform", "$state", "$rootScope", "$timeout", "$cordovaDevice", "FirebaseConfig", "$cordovaGlobalization", "$translate", "$cordovaStatusbar", "$ionicPopup"];
+runBlock.$inject = ["Permission", "$firebaseAuth", "$ionicPlatform", "$state", "$rootScope", "$timeout", "$cordovaDevice", "FirebaseFactory", "$cordovaGlobalization", "$translate", "$cordovaStatusbar", "$ionicPopup"];

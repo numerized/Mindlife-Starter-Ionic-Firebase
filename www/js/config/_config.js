@@ -1,3 +1,9 @@
+/**
+ *@ngdoc interface
+ *@name _Config
+ *@description Project Path: www/js/config/_config.js<br/><br/> JSON type format file hosting the list of parameters and constants to pass throughout the app
+**/
+
 var _Config = (function(){
   'use strict';
   var cfg = {

@@ -81,18 +81,6 @@ function LoginController($rootScope, $scope, $state, FirebaseFactory) {
 
   /**
   * @ngdoc method
-  * @name returnToLogin
-  * @methodOf app.controller:LoginController
-  * @description
-  * Change current state to login state
-  */
-
-  LogC.returnToLogin = function () {
-   	$state.go('login');
-  }
-
-  /**
-  * @ngdoc method
   * @name userLogin
   * @methodOf app.controller:LoginController
   * @description
@@ -149,18 +137,49 @@ function LoginController($rootScope, $scope, $state, FirebaseFactory) {
     });
   }
 
+  /**
+  * @ngdoc method
+  * @name userRegister
+  * @methodOf app.controller:LoginController
+  * @description
+  * Change current state to register state
+  */
+
 	LogC.userRegister = function () {
 		$state.go('register');
 	}
+
+  /**
+  * @ngdoc method
+  * @name userLoginPage
+  * @methodOf app.controller:LoginController
+  * @description
+  * Change current state to userLogin state
+  */
 
 	LogC.userLoginPage = function () {
 		$state.go('userLogin');
 	}
 
-	LogC.returnToLogin = function () {
+  /**
+  * @ngdoc method
+  * @name returnToLogin
+  * @methodOf app.controller:LoginController
+  * @description
+  * Change current state to login state
+  */
 
-    	$state.go('login');
-    }
+	LogC.returnToLogin = function () {
+   	$state.go('login');
+  }
+
+  /**
+  * @ngdoc method
+  * @name googleLogin
+  * @methodOf app.controller:LoginController
+  * @description
+  * Try to log the user with his google credentials.
+  */
 
 	LogC.googleLogin = function() {
         
@@ -193,6 +212,14 @@ function LoginController($rootScope, $scope, $state, FirebaseFactory) {
 		});
 	}
 
+  /**
+  * @ngdoc method
+  * @name twitterLogin
+  * @methodOf app.controller:LoginController
+  * @description
+  * Try to log the user with his twitter credentials.
+  */
+
 	LogC.twitterLogin = function() 
 	{
 		LogC.spinner = true;
@@ -222,6 +249,14 @@ function LoginController($rootScope, $scope, $state, FirebaseFactory) {
 		});
 	}
 
+  /**
+  * @ngdoc method
+  * @name fbLogin
+  * @methodOf app.controller:LoginController
+  * @description
+  * Try to log the user with his facebook credentials.
+  */
+
 	LogC.fbLogin = function ()
 	{
 		LogC.spinner = true;
@@ -250,6 +285,14 @@ function LoginController($rootScope, $scope, $state, FirebaseFactory) {
 		  }
 		})
 	}
+
+  /**
+  * @ngdoc method
+  * @name fbAppLogin
+  * @methodOf app.controller:LoginController
+  * @description
+  * Try to log the user with his pre-installed facebook app, if app is not installed the user is redirected to the normal fb login function.
+  */
 
 	LogC.fbAppLogin = function ()
 	{
@@ -290,6 +333,14 @@ function LoginController($rootScope, $scope, $state, FirebaseFactory) {
 		    fbAppLoginError
 		);
 	}
+
+  /**
+  * @ngdoc method
+  * @name userLoginPasswordReset
+  * @methodOf app.controller:LoginController
+  * @description
+  * Sends an email with password reset instructions
+  */
 
 	LogC.userLoginPasswordReset = function(email)
 	{

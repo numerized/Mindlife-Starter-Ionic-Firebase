@@ -2,9 +2,9 @@ angular
   .module('app.home', [])
   .controller('HomeController', HomeController);
 
-HomeController.$inject = ['$rootScope', '$scope', 'FirebaseConfig', '$translate'];
+HomeController.$inject = ['$rootScope', '$scope', 'FirebaseFactory', '$translate'];
 
-function HomeController ($rootScope, $scope, FirebaseConfig, $translate) {
+function HomeController ($rootScope, $scope, FirebaseFactory, $translate) {
 
   $scope.$on('$ionicView.loaded', function(e) {
 

@@ -5,6 +5,15 @@ NG_DOCS={
   "pages": [
     {
       "section": "api",
+      "id": "_Config",
+      "shortName": "_Config",
+      "type": "interface",
+      "moduleName": "_Config",
+      "shortDescription": "Project Path: www/js/config/_config.js JSON type format file hosting the list of parameters and constants to pass throughout the app",
+      "keywords": "_config api app constants file format hosting interface js json list parameters pass path project type"
+    },
+    {
+      "section": "api",
       "id": "app",
       "shortName": "app",
       "type": "object",
@@ -28,7 +37,7 @@ NG_DOCS={
       "type": "controller",
       "moduleName": "app",
       "shortDescription": "Generate the login views",
-      "keywords": "$rootscope api app change controller current doc email existing firebase generate item login logs method onauth password register returned returntologin second system triggers user userlogin views"
+      "keywords": "$rootscope api app change controller credentials current doc email existing facebook fb fbapplogin fblogin firebase function generate google googlelogin installed instructions item log login logs method normal onauth password pre-installed redirected register reset returned returntologin second sends system triggers twitter twitterlogin user userlogin userloginpage userloginpasswordreset userregister views"
     },
     {
       "section": "api",

@@ -1,1 +1,1 @@
-function AccountController(o){var n=this;n.config=_Config,n.welcome_message="Account"}angular.module("app").controller("AccountController",AccountController),AccountController.$inject=["FirebaseConfig"];
+function AccountController(o){var c=this;c.config=_Config,c.welcome_message="Account"}angular.module("app").controller("AccountController",AccountController),AccountController.$inject=["FirebaseFactory"];

@@ -1,6 +1,6 @@
 angular
   .module('app.help', [])
-  .controller('HelpController', function($scope, $ionicSlideBoxDelegate,) {
+  .controller('HelpController', function($scope, $ionicSlideBoxDelegate) {
 
   $scope.currentSlide = 0;
 

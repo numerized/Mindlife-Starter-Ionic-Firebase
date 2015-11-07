@@ -1,7 +1,7 @@
 /**
 * @ngdoc controller
 * @name app.controller:AccountController
-* @requires FirebaseConfig
+* @requires app.factory:FirebaseFactory
 * @function
 *
 * @description
@@ -14,9 +14,9 @@ angular
   .module('app')
   .controller('AccountController', AccountController);
 
-AccountController.$inject = ['FirebaseConfig'];
+AccountController.$inject = ['FirebaseFactory'];
 
-function AccountController (FirebaseConfig) {
+function AccountController (FirebaseFactory) {
 
   var AccC = this;
   AccC.config = _Config;

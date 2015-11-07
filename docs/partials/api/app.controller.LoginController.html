@@ -8,7 +8,19 @@
 <p><strong>Note:</strong> This is my second doc page</p>
 </div></div>
 <div class="member method"><h2 id="methods">Methods</h2>
-<ul class="methods"><li><h3 id="methods_register">register(email, password)</h3>
+<ul class="methods"><li><h3 id="methods_fbapplogin">fbAppLogin()</h3>
+<div class="fbapplogin"><div class="fbapplogin-page"><p>Try to log the user with his pre-installed facebook app, if app is not installed the user is redirected to the normal fb login function.</p>
+</div></div>
+</li>
+<li><h3 id="methods_fblogin">fbLogin()</h3>
+<div class="fblogin"><div class="fblogin-page"><p>Try to log the user with his facebook credentials.</p>
+</div></div>
+</li>
+<li><h3 id="methods_googlelogin">googleLogin()</h3>
+<div class="googlelogin"><div class="googlelogin-page"><p>Try to log the user with his google credentials.</p>
+</div></div>
+</li>
+<li><h3 id="methods_register">register(email, password)</h3>
 <div class="register"><div class="register-page"><p>Register a new user to Firebase Auth system</p>
 </div><h5 id="methods_register_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>email</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="register-page"><p>Email of the new user</p>
 </div></td></tr><tr><td>password</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="register-page"><p>Password of the new user</p>
@@ -19,11 +31,27 @@
 <div class="returntologin"><div class="returntologin-page"><p>Change current state to login state</p>
 </div></div>
 </li>
+<li><h3 id="methods_twitterlogin">twitterLogin()</h3>
+<div class="twitterlogin"><div class="twitterlogin-page"><p>Try to log the user with his twitter credentials.</p>
+</div></div>
+</li>
 <li><h3 id="methods_userlogin">userLogin(email, password)</h3>
 <div class="userlogin"><div class="userlogin-page"><p>Logs in a existing user to Firebase Auth system and triggers the $rootScope.onAuth method</p>
 </div><h5 id="methods_userlogin_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>email</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="userlogin-page"><p>Email of the existing user</p>
 </div></td></tr><tr><td>password</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="userlogin-page"><p>Password of the existing user</p>
 </div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_userloginpage">userLoginPage()</h3>
+<div class="userloginpage"><div class="userloginpage-page"><p>Change current state to userLogin state</p>
+</div></div>
+</li>
+<li><h3 id="methods_userloginpasswordreset">userLoginPasswordReset()</h3>
+<div class="userloginpasswordreset"><div class="userloginpasswordreset-page"><p>Sends an email with password reset instructions</p>
+</div></div>
+</li>
+<li><h3 id="methods_userregister">userRegister()</h3>
+<div class="userregister"><div class="userregister-page"><p>Change current state to register state</p>
+</div></div>
 </li>
 </ul>
 </div>
