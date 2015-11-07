@@ -20,7 +20,7 @@ gulp.task('ngdocs', [], function () {
   var options = {
     html5Mode: true,
     startPage: '/',
-    title: "Mindlife-Starter-Ionic-Firebase Doc"
+    title: "Mindlife-parc-app Doc"
   }
   return gulp.src('./www/js/**/*.js')
     .pipe(gulpDocs.process(options))

@@ -4,3 +4,8 @@
 node_modules/
 platforms/
 plugins/
+config.xml
+ionic.project
+package.json
+bower.json
+gulpfile.js

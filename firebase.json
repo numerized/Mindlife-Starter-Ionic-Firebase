@@ -1,9 +1,0 @@
-{
-  "firebase": "mindlife-starter-ion",
-  "public": "public",
-  "ignore": [
-    "firebase.json",
-    "**/.*",
-    "**/node_modules/**"
-  ]
-}
