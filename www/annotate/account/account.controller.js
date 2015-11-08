@@ -20,6 +20,6 @@ function AccountController (FirebaseFactory) {
 
   var AccC = this;
   AccC.config = _Config;
-  AccC.welcome_message = "Account";
+  AccC.welcome_message = "Account View";
 
 };
