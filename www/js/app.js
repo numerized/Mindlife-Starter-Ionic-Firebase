@@ -23,7 +23,7 @@ angular.module('app', [
   'firebase', 
   'ngCordova',
   'permission',
-  'fooModule'])
+  'permissionSetter'])
 
 .run(runBlock)
 

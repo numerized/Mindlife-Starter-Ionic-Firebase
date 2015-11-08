@@ -1,5 +1,5 @@
 angular
-  .module('fooModule', ['permission'])
+  .module('permissionSetter', ['permission'])
   .run(function (Permission, $q, $firebaseAuth) {
     // Define anonymous role
     Permission
