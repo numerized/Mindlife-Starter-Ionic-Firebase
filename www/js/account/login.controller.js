@@ -35,7 +35,7 @@ function LoginController($rootScope, $scope, $state, FirebaseFactory) {
   */
 
   LogC.register = function (email, password) {
-
+    
     LogC.spinner = true;
     $scope.authObj.$createUser({
       email: email,
@@ -66,7 +66,7 @@ function LoginController($rootScope, $scope, $state, FirebaseFactory) {
         else if(error.code == "EMAIL_TAKEN")
         {
           LogC.login_message = 'The email provided is already taken';
-          $scope.userLogin(email, password);
+          LogC.userLogin(email, password);
           
         }
         else if(error)
@@ -145,7 +145,7 @@ function LoginController($rootScope, $scope, $state, FirebaseFactory) {
   * Change current state to register state
   */
 
-	LogC.userRegister = function () {
+	LogC.userRegister = function () {  
 		$state.go('register');
 	}
 
@@ -170,7 +170,11 @@ function LoginController($rootScope, $scope, $state, FirebaseFactory) {
   */
 
 	LogC.returnToLogin = function () {
-   	$state.go('login');
+   	$ionicNativeTransitions.stateGo('login', {}, {
+        "type": "slide",
+        "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+        "duration": 300, // in milliseconds (ms), default 400
+    });
   }
 
   /**
